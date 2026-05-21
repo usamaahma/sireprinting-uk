@@ -14,6 +14,7 @@ import {
   Menu,
   X,
 } from "lucide-react";
+import Link from 'next/link';
 
 const PRODUCTS = [
   {
@@ -85,19 +86,17 @@ export default function Navbar() {
       </div>
 
       <motion.nav
-        className={`pointer-events-auto w-full transition-all duration-500 ease-in-out border-b ${
-          isScrolled
+        className={`pointer-events-auto w-full transition-all duration-500 ease-in-out border-b ${isScrolled
             ? "bg-black shadow-2xl border-transparent"
             : "bg-[#f3f3f3]/95 backdrop-blur-md border-black/5"
-        }`}
+          }`}
       >
         {/* --- TOP BAR (Desktop Only) --- */}
         <div
-          className={`hidden md:flex justify-between items-center px-10 py-2 text-[9px] tracking-[0.2em] uppercase font-bold border-b transition-colors ${
-            isScrolled
+          className={`hidden md:flex justify-between items-center px-10 py-2 text-[9px] tracking-[0.2em] uppercase font-bold border-b transition-colors ${isScrolled
               ? "text-gray-400 border-white/10"
               : "text-gray-600 border-black/5"
-          }`}
+            }`}
         >
           <div className="flex gap-6">
             <span className="flex items-center gap-1.5 hover:text-orange-500 cursor-pointer transition-colors">
@@ -124,18 +123,16 @@ export default function Navbar() {
 
         {/* --- MAIN NAVIGATION --- */}
         <div
-          className={`px-6 md:px-10 flex justify-between items-center transition-all duration-300 ${
-            isScrolled ? "h-16" : "h-20"
-          }`}
+          className={`px-6 md:px-10 flex justify-between items-center transition-all duration-300 ${isScrolled ? "h-16" : "h-20"
+            }`}
         >
           {/* Logo - Large Size */}
           <div className="flex items-center cursor-pointer">
             <img
               src={logoSrc}
               alt="Logo"
-              className={`object-contain transition-all duration-300 ${
-                isScrolled ? "h-10 md:h-12" : "h-11 md:h-14"
-              }`}
+              className={`object-contain transition-all duration-300 ${isScrolled ? "h-10 md:h-12" : "h-11 md:h-14"
+                }`}
             />
           </div>
 
@@ -202,11 +199,10 @@ export default function Navbar() {
               <input
                 type="text"
                 placeholder="Search..."
-                className={`bg-white/10 border rounded-full py-2 px-5 text-[10px] w-36 focus:w-48 outline-none transition-all duration-300 ${
-                  isScrolled
+                className={`bg-white/10 border rounded-full py-2 px-5 text-[10px] w-36 focus:w-48 outline-none transition-all duration-300 ${isScrolled
                     ? "text-white border-white/20 placeholder:text-gray-500"
                     : "text-black border-black/10 placeholder:text-gray-500"
-                }`}
+                  }`}
               />
               <Search
                 size={14}
@@ -214,17 +210,18 @@ export default function Navbar() {
               />
             </div>
 
-            <button className="hidden sm:block bg-[#f4a11d] hover:bg-[#f4a11d]-500 text-white rounded-full font-black text-[10px] uppercase tracking-widest px-6 py-2.5 shadow-lg active:scale-95 transition-all">
-              Get a Free Quote
-            </button>
+            <Link href="/getaquote">
+              <button className="hidden sm:block bg-[#f4a11d] hover:bg-[#d98a10] text-white rounded-full font-black text-[10px] uppercase tracking-widest px-6 py-2.5 shadow-lg active:scale-95 transition-all">
+                Get a Free Quote
+              </button>
+            </Link>
 
             <button
               onClick={() => setIsMobileMenuOpen(true)}
-              className={`lg:hidden p-2 rounded-lg transition-colors ${
-                isScrolled
+              className={`lg:hidden p-2 rounded-lg transition-colors ${isScrolled
                   ? "text-white hover:bg-white/10"
                   : "text-black hover:bg-black/5"
-              }`}
+                }`}
             >
               <Menu size={24} />
             </button>
