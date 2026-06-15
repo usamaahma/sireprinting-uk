@@ -1,10 +1,7 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
-
-// Navbar aur Footer ko import karein
-import Navbar from "@/components/Navbar";
-import Footer from "@/components/Footer";
+import LayoutWrapper from "@/components/LayoutWrapper"; // Naya wrapper import karein
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -32,14 +29,8 @@ export default function RootLayout({
       className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
     >
       <body className="min-h-full flex flex-col">
-        {/* 1. Navbar hamesha top par rahega */}
-        <Navbar />
-
-        {/* 2. Main content (Aapka Home page yahan load hoga) */}
-        <main className="flex-grow">{children}</main>
-
-        {/* 3. Footer hamesha bottom par rahega */}
-        <Footer />
+        {/* Wrapper handle karega ke Navbar/Footer kab dikhana hai */}
+        <LayoutWrapper>{children}</LayoutWrapper>
       </body>
     </html>
   );

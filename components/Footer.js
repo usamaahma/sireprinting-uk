@@ -1,4 +1,5 @@
 import React from "react";
+import Link from 'next/link';
 
 export default function Footer() {
   return (
@@ -83,15 +84,28 @@ export default function Footer() {
           </h4>
           <ul className="space-y-2 text-sm text-gray-400">
             <li className="hover:text-orange-400 cursor-pointer">About Us</li>
-            <li className="hover:text-orange-400 cursor-pointer">Contact Us</li>
+            <li className="hover:text-orange-400 cursor-pointer">
+              <Link href="/contactus">
+                Contact Us
+              </Link>
+            </li>
             <li className="hover:text-orange-400 cursor-pointer">Portfolio</li>
-            <li className="hover:text-orange-400 cursor-pointer">Blogs</li>
+            <li className="hover:text-orange-400 cursor-pointer">
+              <Link href="/blogs">
+                Blogs
+              </Link>
+            </li>
             <li className="hover:text-orange-400 cursor-pointer">Sitemap</li>
             <li className="hover:text-orange-400 cursor-pointer">
-              Privacy Policy
+              <Link href="/privacypolicy">
+                Privacy Policy
+              </Link>
             </li>
+
             <li className="hover:text-orange-400 cursor-pointer">
-              Terms And Conditions
+              <Link href="/termsandconditions">
+                Terms And Conditions
+              </Link>
             </li>
           </ul>
         </div>
