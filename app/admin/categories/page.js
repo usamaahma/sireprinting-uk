@@ -10,6 +10,8 @@ import {
   Loader2,
   Globe,
   LayoutGrid,
+  Code, // Added for Schema icon
+  Key, // Added for Keywords icon
 } from "lucide-react";
 import { Toaster, toast } from "react-hot-toast";
 import RichTextEditor from "@/components/RichTextEditor";
@@ -32,9 +34,9 @@ export default function CategoriesPage() {
     featuredImage: "",
     description: "",
     seoTitle: "",
-    seoKeywords: "",
+    seoKeywords: "", // Linked with schema
     seoDescription: "",
-    schema: "",
+    schema: "", // Linked with schema
     faqs: [{ question: "", answer: "" }],
   };
   const [formData, setFormData] = useState(initialFormState);
@@ -192,20 +194,30 @@ export default function CategoriesPage() {
                     <td className="p-8">
                       <div className="flex flex-col gap-2">
                         <span
-                          className={`w-fit px-4 py-1.5 rounded-full text-[9px] font-black uppercase tracking-widest ${cat.seoTitle ? "bg-emerald-100 text-emerald-600" : "bg-red-50 text-red-400"}`}
+                          className={`w-fit px-4 py-1.5 rounded-full text-[9px] font-black uppercase tracking-widest ${cat.seoTitle && cat.seoKeywords ? "bg-emerald-100 text-emerald-600" : "bg-red-50 text-red-400"}`}
                         >
-                          {cat.seoTitle ? "SEO Ready" : "SEO Missing"}
+                          {cat.seoTitle && cat.seoKeywords
+                            ? "SEO Ready"
+                            : "SEO Incomplete"}
                         </span>
-                        <span className="text-[10px] font-bold text-slate-400 ml-1">
-                          {cat.faqs?.length || 0} FAQs Linked
-                        </span>
+                        <div className="flex items-center gap-2 text-[10px] font-bold text-slate-400 ml-1">
+                          <span>{cat.faqs?.length || 0} FAQs</span>
+                          {cat.schema && (
+                            <span className="bg-blue-50 text-blue-500 px-1.5 py-0.5 rounded text-[8px] uppercase tracking-wide">
+                              JSON-LD
+                            </span>
+                          )}
+                        </div>
                       </div>
                     </td>
                     <td className="p-8 text-right">
                       <div className="flex justify-end gap-3 opacity-0 group-hover:opacity-100 transition-opacity">
                         <button
                           onClick={() => {
-                            setFormData(cat);
+                            setFormData({
+                              ...initialFormState,
+                              ...cat, // Ensure missing keys from older docs don't crash
+                            });
                             setCurrentId(cat._id);
                             setIsEditing(true);
                             setIsModalOpen(true);
@@ -235,7 +247,9 @@ export default function CategoriesPage() {
           <div className="bg-slate-50 w-full max-w-5xl h-full shadow-2xl overflow-y-auto animate-in slide-in-from-right duration-300 flex flex-col">
             <div className="p-8 bg-white border-b border-slate-100 flex justify-between items-center sticky top-0 z-50">
               <div>
-                <h2 className="text-2xl font-black italic uppercase text-slate-800">
+                <h2>
+                  className="text-2xl font-black italic uppercase
+                  text-slate-800"
                   {isEditing ? "Modify Category" : "New Entry"}
                 </h2>
                 <p className="text-xs font-bold text-slate-400 uppercase tracking-widest">
@@ -251,6 +265,7 @@ export default function CategoriesPage() {
             </div>
 
             <form onSubmit={handleSubmit} className="p-12 space-y-12 pb-32">
+              {/* Images */}
               <div className="grid grid-cols-2 gap-8">
                 <ImageUploader
                   label="Thumbnail Image"
@@ -266,6 +281,7 @@ export default function CategoriesPage() {
                 />
               </div>
 
+              {/* General Content */}
               <div className="bg-white p-10 rounded-[3rem] border border-slate-100 shadow-sm space-y-8">
                 <div className="grid grid-cols-2 gap-8">
                   <div className="space-y-2">
@@ -316,6 +332,7 @@ export default function CategoriesPage() {
                 </div>
               </div>
 
+              {/* Rich Text Editor */}
               <div className="space-y-4">
                 <h3 className="text-xs font-black uppercase text-orange-500 tracking-widest ml-2">
                   WordPress Style Full Content
@@ -328,33 +345,83 @@ export default function CategoriesPage() {
                 />
               </div>
 
+              {/* SEO Configuration & Schema Section */}
               <div className="grid grid-cols-2 gap-8">
                 <div className="bg-slate-900 p-10 rounded-[3rem] space-y-6">
-                  <h3 className="text-xs font-black uppercase tracking-widest text-orange-400">
-                    SEO Configuration
+                  <h3 className="text-xs font-black uppercase tracking-widest text-orange-400 flex items-center gap-2">
+                    <Globe size={14} /> SEO Configuration
                   </h3>
-                  <input
-                    className="w-full p-5 bg-white/5 border border-white/10 rounded-2xl outline-none focus:border-orange-500 text-white"
-                    placeholder="SEO Title"
-                    value={formData.seoTitle}
-                    onChange={(e) =>
-                      setFormData({ ...formData, seoTitle: e.target.value })
-                    }
-                  />
-                  <textarea
-                    className="w-full p-5 bg-white/5 border border-white/10 rounded-2xl outline-none focus:border-orange-500 text-white"
-                    placeholder="SEO Description"
-                    rows="4"
-                    value={formData.seoDescription}
-                    onChange={(e) =>
-                      setFormData({
-                        ...formData,
-                        seoDescription: e.target.value,
-                      })
-                    }
-                  />
+
+                  <div className="space-y-1">
+                    <label className="text-[9px] font-bold text-slate-400 uppercase tracking-wider ml-1">
+                      SEO Title
+                    </label>
+                    <input
+                      className="w-full p-5 bg-white/5 border border-white/10 rounded-2xl outline-none focus:border-orange-50 text-white"
+                      placeholder="SEO Optimized Title"
+                      value={formData.seoTitle}
+                      onChange={(e) =>
+                        setFormData({ ...formData, seoTitle: e.target.value })
+                      }
+                    />
+                  </div>
+
+                  <div className="space-y-1">
+                    <label className="text-[9px] font-bold text-slate-400 uppercase tracking-wider ml-1">
+                      SEO Keywords
+                    </label>
+                    <input
+                      className="w-full p-5 bg-white/5 border border-white/10 rounded-2xl outline-none focus:border-orange-50 text-white"
+                      placeholder="boxes, cardboard, custom packaging (comma separated)"
+                      value={formData.seoKeywords}
+                      onChange={(e) =>
+                        setFormData({
+                          ...formData,
+                          seoKeywords: e.target.value,
+                        })
+                      }
+                    />
+                  </div>
+
+                  <div className="space-y-1">
+                    <label className="text-[9px] font-bold text-slate-400 uppercase tracking-wider ml-1">
+                      SEO Description
+                    </label>
+                    <textarea
+                      className="w-full p-5 bg-white/5 border border-white/10 rounded-2xl outline-none focus:border-orange-50 text-white"
+                      placeholder="SEO Description..."
+                      rows="3"
+                      value={formData.seoDescription}
+                      onChange={(e) =>
+                        setFormData({
+                          ...formData,
+                          seoDescription: e.target.value,
+                        })
+                      }
+                    />
+                  </div>
+
+                  {/* Schema Integration */}
+                  <div className="space-y-1 pt-2 border-t border-white/10">
+                    <label className="text-[9px] font-bold text-orange-400 uppercase tracking-wider ml-1 flex items-center gap-1">
+                      <Code size={12} /> Custom Schema (JSON-LD)
+                    </label>
+                    <textarea
+                      className="w-full p-5 bg-white/5 border border-white/10 rounded-2xl outline-none focus:border-orange-50 font-mono text-xs text-emerald-400"
+                      placeholder='{ "@context": "https://schema.org", "@type": "Product" ... }'
+                      rows="5"
+                      value={formData.schema}
+                      onChange={(e) =>
+                        setFormData({
+                          ...formData,
+                          schema: e.target.value,
+                        })
+                      }
+                    />
+                  </div>
                 </div>
 
+                {/* FAQ Manager */}
                 <div className="bg-white p-10 rounded-[3rem] border border-slate-100 space-y-6">
                   <div className="flex justify-between items-center">
                     <h3 className="text-xs font-black uppercase tracking-widest text-orange-500">
@@ -376,7 +443,7 @@ export default function CategoriesPage() {
                       + ADD NEW
                     </button>
                   </div>
-                  <div className="space-y-4 overflow-y-auto max-h-[300px] pr-2">
+                  <div className="space-y-4 overflow-y-auto max-h-[450px] pr-2">
                     {formData.faqs.map((faq, i) => (
                       <div
                         key={i}
@@ -420,6 +487,7 @@ export default function CategoriesPage() {
                 </div>
               </div>
 
+              {/* Submit Section */}
               <div className="fixed bottom-0 right-0 w-full max-w-5xl p-8 bg-white/90 backdrop-blur-md border-t border-slate-100 flex gap-4 z-[60]">
                 <button
                   type="submit"
