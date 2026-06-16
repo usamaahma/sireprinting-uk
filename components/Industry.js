@@ -134,7 +134,7 @@ export default function IndustrySection({ subcategoriesData }) {
                         exit={{ height: 0, opacity: 0 }}
                         className="overflow-hidden"
                       >
-                        <div className="grid grid-cols-2 sm:grid-cols-3 gap-4 pb-6 pt-2 px-1">
+                        <div className="grid grid-cols-2 sm:grid-cols-3 gap-4 pb-6 px-1">
                           {loading ? (
                             <div className="col-span-full text-center py-4 text-gray-400 animate-pulse">
                               Loading items...
@@ -171,7 +171,7 @@ export default function IndustrySection({ subcategoriesData }) {
                 animate={{ opacity: 1, y: 0 }}
                 exit={{ opacity: 0, y: -10 }}
                 transition={{ duration: 0.2 }}
-                className="grid lg:grid-cols-2 xl:grid-cols-3 gap-5 pb-4"
+                className="grid lg:grid-cols-2 xl:grid-cols-3 gap-5 pb-4 mt-2"
               >
                 {loading ? (
                   <div className="col-span-full text-center py-20 text-gray-400 font-medium animate-pulse">
