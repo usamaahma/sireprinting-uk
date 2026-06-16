@@ -121,7 +121,7 @@ const SubcategorySchema = new mongoose.Schema(
 );
 
 // Indexes
-SubcategorySchema.index({ slug: 1 });
+// SubcategorySchema.index({ slug: 1 });
 SubcategorySchema.index({ parentCategory: 1 });
 
 // ================= SAFE MODEL REGISTRATION =================

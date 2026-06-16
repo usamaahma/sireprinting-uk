@@ -9,6 +9,7 @@ import PerksBar from "@/components/PerksBar";
 import Breadcrumbs from "@/components/Breadcrumbs";
 
 export default function CategoryView({ data }) {
+    console.log("Category Data:", data);
   const {
     title,
     shortdescription,

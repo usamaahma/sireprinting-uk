@@ -14,6 +14,7 @@ import {
   Menu,
   X,
 } from "lucide-react";
+import Link from "next/link";
 
 const PRODUCTS = [
   {
@@ -130,13 +131,15 @@ export default function Navbar() {
         >
           {/* Logo - Large Size */}
           <div className="flex items-center cursor-pointer">
-            <img
-              src={logoSrc}
-              alt="Logo"
-              className={`object-contain transition-all duration-300 ${
-                isScrolled ? "h-10 md:h-12" : "h-11 md:h-14"
-              }`}
-            />
+            <Link href="/">
+              <img
+                src={logoSrc}
+                alt="Logo"
+                className={`object-contain transition-all duration-300 ${
+                  isScrolled ? "h-10 md:h-12" : "h-11 md:h-14"
+                }`}
+              />
+            </Link>
           </div>
 
           {/* Desktop Menu - Attached to Bottom */}
@@ -214,9 +217,11 @@ export default function Navbar() {
               />
             </div>
 
-            <button className="hidden sm:block bg-[#f4a11d] hover:bg-[#f4a11d]-500 text-white rounded-full font-black text-[10px] uppercase tracking-widest px-6 py-2.5 shadow-lg active:scale-95 transition-all">
-              Get a Free Quote
-            </button>
+            <Link href="/getaquote">
+              <button className="hidden sm:block bg-[#f4a11d] hover:bg-[#d98a10] text-white rounded-full font-black text-[10px] uppercase tracking-widest px-6 py-2.5 shadow-lg active:scale-95 transition-all">
+                Get a Free Quote
+              </button>
+            </Link>
 
             <button
               onClick={() => setIsMobileMenuOpen(true)}
