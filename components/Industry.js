@@ -4,11 +4,10 @@ import { motion, AnimatePresence } from "framer-motion";
 import Link from "next/link";
 
 export default function IndustrySection({ subcategoriesData }) {
-  // 🔵 CLIENT LOG: Initial Subcategories check
-  console.log("🔵 UI Received Subcategories Count:", subcategoriesData?.length, subcategoriesData);
-
   const [activeSubcategoryId, setActiveSubcategoryId] = useState(
-    subcategoriesData && subcategoriesData.length > 0 ? subcategoriesData[0]._id : null
+    subcategoriesData && subcategoriesData.length > 0
+      ? subcategoriesData[0]._id
+      : null,
   );
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(false);
@@ -19,18 +18,18 @@ export default function IndustrySection({ subcategoriesData }) {
     async function fetchProducts() {
       setLoading(true);
       try {
-        const res = await fetch(`/api/products/subcategory/${activeSubcategoryId}`);
+        const res = await fetch(
+          `/api/products/subcategory/${activeSubcategoryId}`,
+        );
         const result = await res.json();
-        
+
         if (result.success) {
-          // 🔵 CLIENT LOG: Active subcategory ke andar kitne products aaye
-          console.log(`🍏 Fetched ${result.data?.length || 0} Products for Subcategory ID: ${activeSubcategoryId}`);
-          setProducts(result.data);
+          setProducts(result.data || []);
         } else {
           setProducts([]);
         }
       } catch (error) {
-        console.error("Error running evaluation loop:", error);
+        console.error("Error fetching products:", error);
         setProducts([]);
       } finally {
         setLoading(false);
@@ -39,6 +38,14 @@ export default function IndustrySection({ subcategoriesData }) {
 
     fetchProducts();
   }, [activeSubcategoryId]);
+
+  const handleTabClick = (id) => {
+    if (activeSubcategoryId === id) {
+      setActiveSubcategoryId(null);
+    } else {
+      setActiveSubcategoryId(id);
+    }
+  };
 
   if (!subcategoriesData || subcategoriesData.length === 0) {
     return (
@@ -49,45 +56,75 @@ export default function IndustrySection({ subcategoriesData }) {
   }
 
   return (
-    <div className="bg-white py-10 md:py-20">
+    <div className="bg-white py-10 md:py-20 antialiased">
       <div className="max-w-[1400px] mx-auto px-4 md:px-10">
-        
         {/* Title Section */}
         <div className="flex flex-col items-center mb-12 text-center">
           <h2 className="text-3xl md:text-5xl font-black text-black uppercase tracking-tighter">
-            Custom <span className="text-[#f4a11d]">Packaging</span> Boxes
+            Custom <span className="text-[#f4a11d]">Product</span> Boxes
           </h2>
           <div className="w-20 h-2 bg-[#f4a11d] mt-4 rounded-full"></div>
         </div>
 
-        {/* Layout Wrapper */}
-        <div className="flex flex-col lg:flex-row gap-6 md:gap-10">
-          
-          {/* CATEGORIES / SUBCATEGORIES MENU TABS */}
-          <div className="w-full lg:w-1/4 xl:w-1/5 flex flex-col gap-3">
+        {/* Desktop par Parent container ko relational (relative) banaya hai aur h-full execution di hai 
+          taake Right column dynamic tareeqe se Left column ki exact height adopt kar sakay.
+        */}
+        <div className="flex flex-col lg:flex-row gap-6 md:gap-10 items-start relative">
+          {/* LEFT SIDEBAR - Takes its own natural height depending on item count (No scrollbar) */}
+          <div className="w-full lg:w-[360px] xl:w-[400px] flex flex-col gap-4 shrink-0">
             {subcategoriesData.map((sub) => (
-              <div key={sub._id} className="flex flex-col gap-3">
+              <div key={sub._id} className="w-full flex flex-col gap-3">
                 <button
-                  onClick={() => setActiveSubcategoryId(sub._id)}
-                  className={`flex items-center justify-between px-6 py-5 rounded-xl font-bold text-sm uppercase tracking-widest transition-all duration-300 border-2 text-left ${
+                  onClick={() => handleTabClick(sub._id)}
+                  className={`w-full flex rounded-2xl overflow-hidden border-2 text-left transition-all duration-300 min-h-[90px] sm:min-h-[110px] relative ${
                     activeSubcategoryId === sub._id
-                      ? "bg-black border-black text-white shadow-xl"
-                      : "bg-white border-gray-100 text-black hover:border-[#f4a11d]"
+                      ? "border-[#f4a11d] shadow-lg"
+                      : "border-gray-100 bg-white hover:border-[#f4a11d]/50"
                   }`}
                 >
-                  <span>{sub.title}</span>
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    className={`h-5 w-5 transition-transform duration-300 ${activeSubcategoryId === sub._id ? "rotate-0 text-[#f4a11d]" : "-rotate-90 opacity-30"}`}
-                    fill="none"
-                    viewBox="0 0 24 24"
-                    stroke="currentColor"
-                  >
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M19 9l-7 7-7-7" />
-                  </svg>
+                  {/* Left Side Banner Frame */}
+                  <div className="w-[55%] bg-[#ffa015] p-4 flex items-center justify-center text-center transition-colors duration-300">
+                    <span className="text-xs sm:text-sm font-black text-white uppercase tracking-tighter leading-tight line-clamp-3">
+                      {sub.title}
+                    </span>
+                  </div>
+
+                  {/* Right Side Frame: Desktop par image, Mobile par arrow layout */}
+                  <div className="flex-1 bg-white p-3 flex items-center justify-center relative">
+                    {/* Desktop View Image */}
+                    <div className="hidden lg:block">
+                      <img
+                        src={sub.image || "/placeholder.jpg"}
+                        alt={sub.title}
+                        className="max-h-[70px] sm:max-h-[85px] w-auto object-contain mix-blend-multiply"
+                      />
+                    </div>
+
+                    {/* Mobile View Dynamic Arrow (No Image on Mobile) */}
+                    <div className="block lg:hidden">
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        className={`h-6 w-6 text-gray-800 transition-transform duration-300 ${
+                          activeSubcategoryId === sub._id
+                            ? "rotate-180 text-[#f4a11d]"
+                            : "rotate-0"
+                        }`}
+                        fill="none"
+                        viewBox="0 0 24 24"
+                        stroke="currentColor"
+                        strokeWidth={3}
+                      >
+                        <path
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          d="M19 9l-7 7-7-7"
+                        />
+                      </svg>
+                    </div>
+                  </div>
                 </button>
 
-                {/* MOBILE VIEW Accordion */}
+                {/* MOBILE VIEW Accordion Grid */}
                 <div className="lg:hidden">
                   <AnimatePresence>
                     {activeSubcategoryId === sub._id && (
@@ -97,15 +134,22 @@ export default function IndustrySection({ subcategoriesData }) {
                         exit={{ height: 0, opacity: 0 }}
                         className="overflow-hidden"
                       >
-                        <div className="grid grid-cols-1 gap-6 pb-8 pt-2 px-2">
+                        <div className="grid grid-cols-2 sm:grid-cols-3 gap-4 pb-6 pt-2 px-1">
                           {loading ? (
-                            <div className="text-center py-4 text-gray-400 animate-pulse">Loading items...</div>
+                            <div className="col-span-full text-center py-4 text-gray-400 animate-pulse">
+                              Loading items...
+                            </div>
                           ) : products.length > 0 ? (
                             products.map((product) => (
-                              <ProductCard key={product._id} product={product} />
+                              <ProductCard
+                                key={product._id}
+                                product={product}
+                              />
                             ))
                           ) : (
-                            <div className="text-center py-4 text-gray-400 text-sm">No items configured.</div>
+                            <div className="col-span-full text-center py-4 text-gray-400 text-sm">
+                              No items configured.
+                            </div>
                           )}
                         </div>
                       </motion.div>
@@ -116,15 +160,18 @@ export default function IndustrySection({ subcategoriesData }) {
             ))}
           </div>
 
-          {/* DESKTOP VIEW Right Grid Rendering Area */}
-          <div className="hidden lg:block flex-1">
+          {/* DESKTOP VIEW Right Grid Area: 
+            - 'lg:absolute lg:top-0 lg:bottom-0 lg:right-0 lg:left-[384px] xl:left-[440px]' handles strict physical height mapping to match left sidebar's bounds.
+          */}
+          <div className="hidden lg:block lg:absolute lg:top-0 lg:bottom-0 lg:right-0 lg:left-[384px] xl:left-[440px] overflow-y-auto pr-2 scrollbar-custom">
             <AnimatePresence mode="wait">
               <motion.div
                 key={activeSubcategoryId}
                 initial={{ opacity: 0, y: 10 }}
                 animate={{ opacity: 1, y: 0 }}
                 exit={{ opacity: 0, y: -10 }}
-                className="grid lg:grid-cols-2 xl:grid-cols-3 gap-8"
+                transition={{ duration: 0.2 }}
+                className="grid lg:grid-cols-2 xl:grid-cols-3 gap-5 pb-4"
               >
                 {loading ? (
                   <div className="col-span-full text-center py-20 text-gray-400 font-medium animate-pulse">
@@ -142,38 +189,50 @@ export default function IndustrySection({ subcategoriesData }) {
               </motion.div>
             </AnimatePresence>
           </div>
-
         </div>
       </div>
+
+      {/* Synchronized Custom Scrollbars CSS */}
+      <style jsx global>{`
+        .scrollbar-custom::-webkit-scrollbar {
+          width: 5px;
+        }
+        .scrollbar-custom::-webkit-scrollbar-track {
+          background: transparent;
+        }
+        .scrollbar-custom::-webkit-scrollbar-thumb {
+          background: #e2e8f0;
+          border-radius: 9999px;
+        }
+        .scrollbar-custom::-webkit-scrollbar-thumb:hover {
+          background: #cbd5e1;
+        }
+      `}</style>
     </div>
   );
 }
 
 function ProductCard({ product }) {
   return (
-    <Link 
+    <Link
       href={`/${product.slug}`}
-      className="group bg-white rounded-[2.5rem] p-6 shadow-lg shadow-gray-100/50 border border-gray-100 flex flex-col h-full hover:bg-[#f4a11d] hover:border-[#f4a11d] transition-all duration-500 cursor-pointer"
+      className="block w-full group cursor-pointer"
     >
-      <div className="aspect-square bg-gray-50 rounded-[2rem] overflow-hidden mb-6 relative border border-gray-50 group-hover:bg-white/20 transition-colors duration-500">
-        <img
-          src={product.featuredImage || product.image || "/placeholder.jpg"}
-          alt={product.title}
-          className="w-full h-full object-contain p-8 group-hover:scale-105 transition-transform duration-700"
-        />
-        <span className="absolute top-4 left-4 bg-[#f4a11d] text-white group-hover:bg-black text-[10px] font-black px-4 py-1.5 rounded-full uppercase tracking-tighter transition-colors">
-          Hot
-        </span>
-      </div>
+      <div className="w-full flex flex-col bg-white rounded-2xl p-3 border border-gray-100 hover:border-[#f4a11d] shadow-sm hover:shadow-md transition-all duration-300 ease-out hover:-translate-y-0.5">
+        <div className="aspect-square w-full bg-gray-50/50 rounded-xl overflow-hidden flex items-center justify-center p-4 mb-3 group-hover:bg-white transition-colors duration-300">
+          <img
+            src={product.featuredImage || product.image || "/placeholder.jpg"}
+            alt={product.title}
+            className="w-[90%] h-[90%] object-contain mix-blend-multiply transition-transform duration-500 ease-out group-hover:scale-[1.02]"
+            loading="lazy"
+          />
+        </div>
 
-      <div className="flex flex-col flex-1 text-center">
-        <h3 className="text-lg font-black text-black uppercase leading-tight mb-6 px-2 tracking-tight group-hover:text-white transition-colors line-clamp-2">
-          {product.title}
-        </h3>
-
-        <button className="mt-auto w-full py-4 bg-[#f4a11d] group-hover:bg-white text-white group-hover:text-[#f4a11d] rounded-xl font-black text-xs uppercase tracking-[0.2em] shadow-lg shadow-[#f4a11d]/20 group-hover:shadow-none transition-all duration-300">
-          Get Quote
-        </button>
+        <div className="px-1 pb-1">
+          <h3 className="text-xs md:text-sm font-bold text-gray-900 tracking-tight text-center leading-snug line-clamp-2 min-h-[36px] group-hover:text-[#f4a11d] transition-colors duration-200">
+            {product.title}
+          </h3>
+        </div>
       </div>
     </Link>
   );
