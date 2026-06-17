@@ -60,9 +60,16 @@ export default function IndustrySection({ subcategoriesData }) {
       <div className="max-w-[1400px] mx-auto px-4 md:px-10">
         {/* Title Section */}
         <div className="flex flex-col items-center mb-12 text-center">
-          <h2 className="text-3xl md:text-5xl font-black text-black uppercase tracking-tighter">
-            Custom <span className="text-[#f4a11d]">Product</span> Boxes
+          <h2 className="text-3xl md:text-3xl font-black text-black uppercase tracking-tighter">
+            Explore Our{" "}
+            <span className="text-[#f4a11d]">Custom Packaging Boxes</span> UK
+            Range
           </h2>
+          <p>
+            Every product comes fully customised — your dimensions, your finish,
+            your brand. From single-colour prints to premium foil-stamped rigid
+            boxes, we cover the full spectrum of custom packaging needs.
+          </p>
           <div className="w-20 h-2 bg-[#f4a11d] mt-4 rounded-full"></div>
         </div>
 

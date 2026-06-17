@@ -1,14 +1,13 @@
-import React from 'react';
+import React from "react";
 
 export default function IntroText() {
   return (
     <section className="mt-12 py-2 md:py-2 bg-white">
       <div className="container mx-auto px-4 max-w-5xl text-center">
-        
         {/* Main Heading */}
         <h2 className="text-3xl md:text-5xl font-black text-slate-900 leading-tight uppercase tracking-tighter">
-          Get Custom Packaging Boxes <br className="hidden md:block" /> 
-          That Help Your <span className="text-[#F4A11D]">Products Sell</span>
+          Premium Custom Boxes with Logo & Wholesale{" "}
+          <span className="text-[#F4A11D]">Packaging Solutions </span>
         </h2>
 
         {/* Orange Small Divider */}
@@ -18,9 +17,13 @@ export default function IntroText() {
 
         {/* Description Paragraph */}
         <p className="text-lg md:text-xl text-slate-600 font-medium leading-relaxed">
-          Finding the right custom packaging boxes in USA that reflect your brand's identity is essential for success. 
-          Sire Printing makes the process effortless and professional. Our packaging experts design and produce 
-          custom boxes with logo in USA that highlight your brand's style while ensuring durability and functionality.
+          At Sire Printing, we produce branded packaging boxes that do more than
+          just hold a product; they tell your brand's story from the very first
+          glance. Low MOQs, zero hidden costs, sustainable materials and fast UK
+          turnaround make premium packaging accessible to every business. If you
+          need wholesale packaging boxes for large-scale fulfilment or custom
+          orders for a growing product line, we match your brief, your budget
+          and your timeline with quality that shows.
         </p>
 
         {/* Optional: Small Sub-text or secondary pitch */}
