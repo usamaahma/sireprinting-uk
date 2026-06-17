@@ -9,6 +9,7 @@ import IndustrySection from "@/components/Industry";
 import ContentSection from "@/components/ContentSection";
 import FAQSection from "@/components/Faqs";
 import Testimonials from "@/components/Testimonials";
+import PackagingSections from "@/components/FinalCta";
 
 export default async function HomePage() {
   await dbConnect();
@@ -31,6 +32,7 @@ export default async function HomePage() {
       <IndustrySection subcategoriesData={subcategoriesData} />
       <ContentSection />
       <Testimonials />
+      <PackagingSections />
       <FAQSection />
     </div>
   );
