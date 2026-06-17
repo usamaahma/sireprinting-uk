@@ -12,24 +12,41 @@ import Testimonials from "@/components/Testimonials";
 import PackagingSections from "@/components/FinalCta";
 
 export default async function HomePage() {
+  // Database connect karein
   await dbConnect();
 
-  // 1. Database se BINA filter ke saari subcategories utha lein taake temporary 7 ki 7 show hon
-  const rawSubcategories = await Subcategory.find({}).lean();
+  // 1. Slug se exact Category dhoondein
+  const category = await Category.findOne({
+    slug: "custom-product-boxes",
+  }).lean();
 
-  // 2. Map the data safely for client component
-  const subcategoriesData = rawSubcategories.map((sub) => ({
-    ...sub,
-    _id: sub._id.toString(),
-    parentCategory: sub.parentCategory ? sub.parentCategory.toString() : "",
-  }));
+  let subcategoriesData = [];
+
+  // 2. Agar Category mil gayi, toh uski ID se subcategories fetch karein
+  if (category) {
+    const rawSubcategories = await Subcategory.find({
+      parentCategory: category._id,
+    }).lean();
+
+    // 3. Data ko map karein taake client component crash na ho
+    subcategoriesData = rawSubcategories.map((sub) => ({
+      ...sub,
+      _id: sub._id.toString(),
+      parentCategory: sub.parentCategory ? sub.parentCategory.toString() : "",
+    }));
+  } else {
+    console.error("Category 'custom-product-boxes' not found in DB!");
+  }
 
   return (
     <div className="flex flex-col min-h-screen">
       <Hero />
       <IntroText />
       <PerksBar />
+
+      {/* Yahan wahi subcategories jayengi jo Custom Product Boxes ki hain */}
       <IndustrySection subcategoriesData={subcategoriesData} />
+
       <ContentSection />
       <Testimonials />
       <PackagingSections />
