@@ -66,7 +66,6 @@ export default async function Page({ params }) {
           />
         );
       }
-      // Ab yahan full solid state object jayega jisme FAQs aur Products dono crash-free chalenge!
       return <SubCategoryView data={finalData} />;
 
     case "product":

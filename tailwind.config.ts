@@ -1,4 +1,5 @@
 import type { Config } from "tailwindcss";
+import typography from "@tailwindcss/typography"; // 1. Yahan import karein
 
 const config: Config = {
   content: [
@@ -15,6 +16,9 @@ const config: Config = {
       },
     },
   },
-  plugins: [],
+  plugins: [
+    typography, 
+  ],
 };
+
 export default config;
