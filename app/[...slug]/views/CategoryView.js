@@ -1,4 +1,3 @@
-// app/[...slug]/views/CategoryView.js
 "use client";
 
 import { useState, useEffect } from "react";
@@ -9,7 +8,6 @@ import PerksBar from "@/components/PerksBar";
 import Breadcrumbs from "@/components/Breadcrumbs";
 
 export default function CategoryView({ data }) {
-    console.log("Category Data:", data);
   const {
     title,
     shortdescription,
@@ -19,36 +17,22 @@ export default function CategoryView({ data }) {
     subcategories,
   } = data;
 
-  // States
   const [activeSubcategoryId, setActiveSubcategoryId] = useState(
     subcategories && subcategories.length > 0 ? subcategories[0]._id : null,
   );
-  const [products, setProducts] = useState([]); // Dynamic products ki state
-  const [loading, setLoading] = useState(false); // Loading state
+  const [products, setProducts] = useState([]);
+  const [loading, setLoading] = useState(false);
 
-  // Selected subcategory ka baqi data nikalne ke liye (slug wagera)
-  const activeSubcategory = subcategories?.find(
-    (sub) => sub._id === activeSubcategoryId,
-  );
-
-  // 🔥 EFFECT: Jab bhi subcategory change ho, API se fresh products get karo
   useEffect(() => {
     if (!activeSubcategoryId) return;
-
     async function fetchProducts() {
       setLoading(true);
       try {
-        // Jo API aap ne banai thi, exact wahi call ho rahi hy yahan
         const res = await fetch(
           `/api/products/subcategory/${activeSubcategoryId}`,
         );
         const result = await res.json();
-
-        if (result.success) {
-          setProducts(result.data);
-        } else {
-          setProducts([]);
-        }
+        setProducts(result.success ? result.data || [] : []);
       } catch (error) {
         console.error("Error fetching products:", error);
         setProducts([]);
@@ -56,7 +40,6 @@ export default function CategoryView({ data }) {
         setLoading(false);
       }
     }
-
     fetchProducts();
   }, [activeSubcategoryId]);
 
@@ -83,12 +66,12 @@ export default function CategoryView({ data }) {
             </div>
           </div>
           <div className="lg:w-1/2 mt-16 lg:mt-10 relative">
-            <div className="absolute -inset-4 bg-orange-100/50 rounded-full blur-3xl opacity-30 animate-pulse"></div>
             <div className="relative aspect-[4/3] rounded-3xl overflow-hidden shadow-2xl border-8 border-white">
               <Image
                 src={featuredImage || "/placeholder.jpg"}
                 alt={title}
                 fill
+                sizes="(max-width: 768px) 100vw, 50vw"
                 className="object-cover"
                 priority
               />
@@ -99,7 +82,7 @@ export default function CategoryView({ data }) {
 
       <PerksBar />
 
-      {/* Subcategories with Products Layout */}
+      {/* NEW INTEGRATED DESIGN SECTION */}
       <section className="py-20 bg-slate-50/50">
         <div className="container mx-auto px-6">
           <div className="text-center mb-16">
@@ -109,96 +92,81 @@ export default function CategoryView({ data }) {
             <div className="w-24 h-1.5 bg-orange-500 mx-auto mt-4 rounded-full"></div>
           </div>
 
-          <div className="flex flex-col lg:flex-row gap-10 items-start">
-            {/* LEFT SIDE: Subcategories Navigation */}
-            <div className="w-full lg:w-1/4 flex flex-col gap-3 sticky top-6">
-              {subcategories?.map((subcategory) => {
-                const isActive = subcategory._id === activeSubcategoryId;
-                return (
+          <div className="flex flex-col lg:flex-row gap-6 md:gap-10 items-start relative">
+            <div className="w-full lg:w-[360px] xl:w-[400px] flex flex-col gap-4 shrink-0">
+              {subcategories?.map((sub) => (
+                <div key={sub._id} className="w-full flex flex-col gap-3">
                   <button
-                    key={subcategory._id}
-                    onClick={() => setActiveSubcategoryId(subcategory._id)}
-                    className={`w-full flex items-center justify-between p-5 rounded-xl font-bold text-base transition-all uppercase tracking-wider border ${
-                      isActive
-                        ? "bg-black text-white border-black shadow-lg"
-                        : "bg-white text-slate-800 border-slate-100 hover:bg-slate-50"
-                    }`}
+                    onClick={() => setActiveSubcategoryId(sub._id)}
+                    className={`w-full flex rounded-2xl overflow-hidden border-2 text-left transition-all duration-300 h-[130px] relative ${activeSubcategoryId === sub._id ? "border-orange-500 shadow-lg" : "border-slate-100 bg-white hover:border-orange-500/50"}`}
                   >
-                    <span>{subcategory.title}</span>
-                    <ChevronRight
-                      size={18}
-                      className={`transition-transform ${
-                        isActive
-                          ? "rotate-90 text-orange-400"
-                          : "text-slate-400"
-                      }`}
-                    />
+                    <div className="w-[55%] bg-orange-500 p-4 flex items-center justify-center text-center">
+                      <span className="text-xs sm:text-sm font-black text-white uppercase tracking-tighter leading-tight line-clamp-3">
+                        {sub.title}
+                      </span>
+                    </div>
+                    <div className="flex-1 bg-white flex items-center justify-center relative">
+                      <div className="hidden lg:flex flex-1 items-center justify-center overflow-hidden h-full">
+                        <img
+                          src={sub.image || "/placeholder.jpg"}
+                          alt={sub.title}
+                          className="w-full h-full object-cover"
+                        />
+                      </div>
+                      <div className="block lg:hidden">
+                        <ChevronRight
+                          className={`h-6 w-6 text-slate-800 transition-transform ${activeSubcategoryId === sub._id ? "rotate-90 text-orange-500" : ""}`}
+                        />
+                      </div>
+                    </div>
                   </button>
-                );
-              })}
+                  <div className="lg:hidden">
+                    {activeSubcategoryId === sub._id && (
+                      <div className="grid grid-cols-2 gap-4 pb-6 px-1">
+                        {loading ? (
+                          <p className="col-span-2 text-center text-slate-400">
+                            Loading...
+                          </p>
+                        ) : (
+                          products.map((p) => (
+                            <ProductCard key={p._id} product={p} />
+                          ))
+                        )}
+                      </div>
+                    )}
+                  </div>
+                </div>
+              ))}
             </div>
 
-            {/* RIGHT SIDE: Dynamic Products Grid */}
-            <div className="w-full lg:w-3/4 bg-white p-8 rounded-3xl border border-slate-100 shadow-sm min-h-[400px] relative">
-              {/* Case 1: Data load ho raha hy */}
-              {loading ? (
-                <div className="absolute inset-0 flex flex-col items-center justify-center bg-white/80 rounded-3xl z-10">
-                  <Loader2 className="w-10 h-10 text-orange-500 animate-spin mb-2" />
-                  <p className="text-slate-500 font-medium">
-                    Loading Products...
-                  </p>
-                </div>
-              ) : null}
-
-              {/* Case 2: Products mil gaye */}
-              {!loading && products && products.length > 0 ? (
-                <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-8">
-                  {products.map((product) => (
-                    <Link
-                      key={product._id}
-                      href={`/${product.slug}`}
-                      className="group bg-white rounded-2xl border border-slate-100 hover:shadow-xl transition-all duration-300 overflow-hidden block text-center"
-                    >
-                      <div className="relative aspect-square bg-slate-50/50 m-4 rounded-xl overflow-hidden flex items-center justify-center p-6">
-                        <Image
-                          src={
-                            product.featuredImage ||
-                            product.image ||
-                            "/placeholder.jpg"
-                          }
-                          alt={product.title}
-                          fill
-                          className="object-contain p-6 group-hover:scale-105 transition-transform duration-500"
-                        />
-                        <span className="absolute top-3 left-3 bg-orange-500 text-white text-[10px] font-black tracking-widest px-3 py-1 rounded-md uppercase">
-                          Hot
-                        </span>
-                      </div>
-
-                      <div className="p-5 pt-0">
-                        <h3 className="font-black text-xl mb-4 tracking-tight uppercase text-slate-900 line-clamp-2">
-                          {product.title}
-                        </h3>
-                        <button className="w-full py-4 bg-orange-500 hover:bg-orange-600 text-white font-black text-sm uppercase tracking-widest rounded-xl transition-colors shadow-md shadow-orange-500/10">
-                          Get Quote
-                        </button>
-                      </div>
-                    </Link>
-                  ))}
-                </div>
-              ) : (
-                /* Case 3: Agar koi product nahi mila */
-                !loading && (
-                  <div className="text-center py-20 bg-slate-50 rounded-2xl">
-                    <p className="text-slate-500 font-medium">
-                      No products available in this collection yet.
-                    </p>
+            <div className="hidden lg:block lg:absolute lg:top-0 lg:bottom-0 lg:right-0 lg:left-[384px] xl:left-[440px] overflow-y-auto pr-2 scrollbar-custom">
+              <div className="grid lg:grid-cols-2 xl:grid-cols-3 gap-5 pb-4 mt-2">
+                {loading ? (
+                  <div className="col-span-full text-center py-20 text-slate-400">
+                    Fetching products...
                   </div>
-                )
-              )}
+                ) : products.length > 0 ? (
+                  products.map((product) => (
+                    <ProductCard key={product._id} product={product} />
+                  ))
+                ) : (
+                  <div className="col-span-full text-center py-20 text-slate-400">
+                    No products found.
+                  </div>
+                )}
+              </div>
             </div>
           </div>
         </div>
+        <style jsx global>{`
+          .scrollbar-custom::-webkit-scrollbar {
+            width: 5px;
+          }
+          .scrollbar-custom::-webkit-scrollbar-thumb {
+            background: #e2e8f0;
+            border-radius: 9999px;
+          }
+        `}</style>
       </section>
 
       {/* What Sets Us Apart */}
@@ -273,12 +241,11 @@ export default function CategoryView({ data }) {
 
       {/* SEO & FAQ */}
       <section className="py-24 bg-white">
-        <div className="container mx-auto px-6 max-w-4xl">
+        <div className="container mx-auto px-6 ">
           <div
-            className="prose prose-slate prose-lg max-w-none mb-20"
+            className="prose prose-slate prose-lg max-w-none mb-20 max-h-[400px] overflow-y-auto pr-4 scrollbar-custom border-r border-slate-100"
             dangerouslySetInnerHTML={{ __html: description }}
           />
-
           <div className="space-y-6">
             <h2 className="text-3xl font-bold mb-10 text-center">
               Frequently Asked Questions
@@ -305,6 +272,29 @@ export default function CategoryView({ data }) {
         </div>
       </section>
     </main>
+  );
+}
+
+function ProductCard({ product }) {
+  return (
+    <Link href={`/${product.slug}`} className="block w-full group">
+      <div className="w-full flex flex-col bg-white rounded-2xl overflow-hidden border border-slate-100 hover:border-orange-500 shadow-sm hover:shadow-md transition-all duration-300">
+        <div className="aspect-square w-full relative overflow-hidden bg-white">
+          <Image
+            src={product.featuredImage || product.image || "/placeholder.jpg"}
+            alt={product.title}
+            fill
+            sizes="(max-width: 768px) 100vw, 33vw"
+            className="object-contain p-2 group-hover:scale-105 transition-transform duration-500"
+          />
+        </div>
+        <div className="p-3">
+          <h3 className="text-xs md:text-sm font-bold text-slate-900 text-center line-clamp-2 min-h-[36px] group-hover:text-orange-500">
+            {product.title}
+          </h3>
+        </div>
+      </div>
+    </Link>
   );
 }
 

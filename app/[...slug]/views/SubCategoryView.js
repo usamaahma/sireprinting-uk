@@ -271,10 +271,10 @@ export default function SubCategoryView({ data }) {
 
       {/* 6. DETAILED SEO CONTENT & ACCORDION */}
       <section className="py-24 bg-white">
-        <div className="container mx-auto px-6 max-w-4xl">
+        <div className="container mx-auto px-6 ">
           {fullDescription && (
             <div
-              className="prose prose-slate prose-lg max-w-none mb-20"
+              className="prose prose-slate prose-lg max-w-none mb-20 max-h-[400px] overflow-y-auto pr-4 scrollbar-custom border-b border-slate-100 pb-4"
               dangerouslySetInnerHTML={{ __html: fullDescription }}
             />
           )}

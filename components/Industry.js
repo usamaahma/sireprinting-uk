@@ -83,7 +83,7 @@ export default function IndustrySection({ subcategoriesData }) {
               <div key={sub._id} className="w-full flex flex-col gap-3">
                 <button
                   onClick={() => handleTabClick(sub._id)}
-                  className={`w-full flex rounded-2xl overflow-hidden border-2 text-left transition-all duration-300 min-h-[90px] sm:min-h-[110px] relative ${
+                  className={`w-full flex rounded-2xl overflow-hidden border-2 text-left transition-all duration-300 h-[130px] sm:h-[130px] relative ${
                     activeSubcategoryId === sub._id
                       ? "border-[#f4a11d] shadow-lg"
                       : "border-gray-100 bg-white hover:border-[#f4a11d]/50"
@@ -97,13 +97,13 @@ export default function IndustrySection({ subcategoriesData }) {
                   </div>
 
                   {/* Right Side Frame: Desktop par image, Mobile par arrow layout */}
-                  <div className="flex-1 bg-white p-3 flex items-center justify-center relative">
+                  <div className="flex-1 bg-white  flex items-center justify-center relative">
                     {/* Desktop View Image */}
-                    <div className="hidden lg:block">
+                    <div className="hidden lg:flex flex-1 items-center justify-center overflow-hidden">
                       <img
                         src={sub.image || "/placeholder.jpg"}
                         alt={sub.title}
-                        className="max-h-[70px] sm:max-h-[85px] w-auto object-contain mix-blend-multiply"
+                        className="w-full h-full object-cover"
                       />
                     </div>
 
@@ -225,17 +225,19 @@ function ProductCard({ product }) {
       href={`/${product.slug}`}
       className="block w-full group cursor-pointer"
     >
-      <div className="w-full flex flex-col bg-white rounded-2xl p-3 border border-gray-100 hover:border-[#f4a11d] shadow-sm hover:shadow-md transition-all duration-300 ease-out hover:-translate-y-0.5">
-        <div className="aspect-square w-full bg-gray-50/50 rounded-xl overflow-hidden flex items-center justify-center p-4 mb-3 group-hover:bg-white transition-colors duration-300">
+      <div className="w-full flex flex-col bg-white rounded-2xl overflow-hidden border border-gray-100 hover:border-[#f4a11d] shadow-sm hover:shadow-md transition-all duration-300 ease-out hover:-translate-y-0.5">
+        {/* Image */}
+        <div className="aspect-square w-full overflow-hidden bg-white">
           <img
             src={product.featuredImage || product.image || "/placeholder.jpg"}
             alt={product.title}
-            className="w-[90%] h-[90%] object-contain mix-blend-multiply transition-transform duration-500 ease-out group-hover:scale-[1.02]"
+            className="w-full h-full object-contain transition-transform duration-500 ease-out group-hover:scale-105"
             loading="lazy"
           />
         </div>
 
-        <div className="px-1 pb-1">
+        {/* Title */}
+        <div className="p-3">
           <h3 className="text-xs md:text-sm font-bold text-gray-900 tracking-tight text-center leading-snug line-clamp-2 min-h-[36px] group-hover:text-[#f4a11d] transition-colors duration-200">
             {product.title}
           </h3>
