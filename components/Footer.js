@@ -83,7 +83,11 @@ export default function Footer() {
             Useful Links
           </h4>
           <ul className="space-y-2 text-sm text-gray-400">
-            <li className="hover:text-orange-400 cursor-pointer">About Us</li>
+            <li>
+              <Link href="/aboutus" className="hover:text-orange-400 cursor-pointer">
+                About Us
+              </Link>
+            </li>
             <li className="hover:text-orange-400 cursor-pointer">
               <Link href="/contactus">
                 Contact Us

@@ -1,7 +1,7 @@
 import ContactUs from "../../components/contactus/contactus";
 
  
-export default function getaquote() {
+export default function contact() {
   return (
     // <div>abc</div>
     <div className="flex flex-col min-h-screen">
