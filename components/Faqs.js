@@ -52,7 +52,7 @@ export default function FAQCompact() {
   }, []);
 
   return (
-    <section className="py-12 bg-white font-sans">
+    <section className="py-8 bg-white font-sans">
       <div className="container mx-auto px-6 md:px-12 lg:px-16">
         <div className="grid lg:grid-cols-2 gap-10 items-center">
           {/* Left Side: FAQs (Compact) */}

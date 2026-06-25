@@ -19,7 +19,7 @@ const PackagingSections = () => {
   return (
     <>
       {/* Industries Section */}
-      <section className="py-20 bg-slate-50">
+      <section className="py-2 bg-slate-50">
         <div className="container mx-auto px-4">
           <div className="max-w-3xl mx-auto text-center">
             <span className="inline-flex px-4 py-2 rounded-full bg-orange-100 text-brand-orange font-semibold text-sm">
@@ -71,7 +71,7 @@ const PackagingSections = () => {
       </section>
 
       {/* Final CTA */}
-      <section className="pb-20">
+      <section className="pb-10">
         <div className="container mx-auto px-4">
           <div className="relative overflow-hidden rounded-[32px] bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 p-8 md:p-14 text-center">
 

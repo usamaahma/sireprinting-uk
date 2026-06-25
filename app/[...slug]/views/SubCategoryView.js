@@ -1,12 +1,12 @@
 "use client";
-import { useEffect, useState } from "react"; // useState add kiya
+import { useEffect, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { CheckCircle, ArrowRight } from "lucide-react";
 import PerksBar from "@/components/PerksBar";
 import Breadcrumbs from "../../../components/Breadcrumbs";
 
-// Swiper Imports for Carousel
+// Swiper Imports (Agar aap inhe dusri jagah use kar rahe hain to rehne dein, warna hata sakte hain)
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Navigation, Pagination, Autoplay } from "swiper/modules";
 import "swiper/css";
@@ -42,17 +42,13 @@ function FormInput({ label, type }) {
 }
 
 export default function SubCategoryView({ data }) {
-  // Safe Fallback layer agar data undefined ho
   const safeData = data || {};
-  const subcategoryId = safeData._id; // Subcategory ID extraction
+  const subcategoryId = safeData._id;
 
   const [carouselProducts, setCarouselProducts] = useState([]);
   const [loadingProducts, setLoadingProducts] = useState(true);
 
-  // Fetch Products by Subcategory ID if not passed in props
   useEffect(() => {
-    console.log("SubCategoryView Data:", data);
-
     async function fetchSubcategoryProducts() {
       if (!subcategoryId) return;
       try {
@@ -68,7 +64,6 @@ export default function SubCategoryView({ data }) {
       }
     }
 
-    // Agar data prop mein products pehle se hain to fetch nahi karega
     if (safeData.products && safeData.products.length > 0) {
       setCarouselProducts(safeData.products);
       setLoadingProducts(false);
@@ -86,7 +81,6 @@ export default function SubCategoryView({ data }) {
     faqs,
   } = safeData;
 
-  // FAQs Merge
   const allFaqs = [
     ...(Array.isArray(faqs) ? faqs : []),
     ...(Array.isArray(quickFaqs) ? quickFaqs : []),
@@ -132,73 +126,52 @@ export default function SubCategoryView({ data }) {
       {/* 2. TRUST STRIP */}
       <PerksBar />
 
-      {/* 3. PRODUCTS CAROUSEL SECTION */}
-      <section className="py-24 bg-white">
-        <div className="container mx-auto px-6">
-          <div className="text-center mb-16 space-y-4">
-            <h2 className="text-4xl font-bold">
-              Featured {title || ""} Products
-            </h2>
-            <div className="w-24 h-1 bg-orange-600 mx-auto rounded-full"></div>
+      {/* PRODUCTS GRID */}
+      <section className="py-16 bg-white w-full">
+        <div className="container mx-auto px-4">
+          <div className="text-center mb-12">
+            <h2 className="text-3xl font-bold">Featured Products</h2>
           </div>
 
-          {/* 🔥 CAROUSEL IMPLEMENTATION */}
           {loadingProducts ? (
-            <div className="text-center py-12 text-slate-400 animate-pulse">
-              Loading custom configuration layouts...
-            </div>
+            <div className="text-center py-12 text-slate-400">Loading...</div>
           ) : carouselProducts.length > 0 ? (
-            <div className="px-4">
-              <Swiper
-                modules={[Navigation, Pagination, Autoplay]}
-                spaceBetween={30}
-                slidesPerView={1}
-                navigation
-                pagination={{ clickable: true }}
-                autoplay={{ delay: 3000, disableOnInteraction: false }}
-                breakpoints={{
-                  640: { slidesPerView: 2 },
-                  1024: { slidesPerView: 3 },
-                  1280: { slidesPerView: 4 },
-                }}
-                className="pb-14 !p-4"
-              >
-                {carouselProducts.map((item) => (
-                  <SwiperSlide key={item._id || item.slug} className="h-auto">
-                    <Link
-                      href={`/${item.slug}`}
-                      className="group flex flex-col h-full bg-white rounded-2xl border border-slate-100 p-4 hover:shadow-2xl hover:border-orange-200 transition-all duration-500"
-                    >
-                      <div className="relative aspect-square bg-slate-50 rounded-xl overflow-hidden mb-6">
-                        <Image
-                          src={
-                            item.featuredImage ||
-                            item.image ||
-                            "/placeholder.jpg"
-                          }
-                          alt={item.title || "Product Image"}
-                          fill
-                          className="object-contain p-6 group-hover:scale-110 transition-transform duration-500"
-                        />
-                      </div>
-                      <h3 className="text-xl font-bold mb-2 group-hover:text-orange-600 transition-colors">
-                        {item.title}
-                      </h3>
-                      <p className="text-slate-500 text-sm mb-6 line-clamp-2 flex-grow">
-                        {item.shortDescription ||
-                          "Custom sizes, dynamic materials, and premium structural coatings available."}
-                      </p>
-                      <div className="w-full py-3 rounded-lg border-2 border-slate-900 font-bold group-hover:bg-slate-900 group-hover:text-white transition-all text-center flex items-center justify-center gap-2 mt-auto">
-                        View Details <ArrowRight size={16} />
-                      </div>
-                    </Link>
-                  </SwiperSlide>
-                ))}
-              </Swiper>
+            // Grid alignment fix
+            <div className="grid grid-cols-2 md:grid-cols-5 gap-4">
+              {carouselProducts.map((item) => (
+                <Link
+                  key={item._id || item.slug}
+                  href={`/${item.slug}`}
+                  className="group relative block bg-white border border-slate-200 transition-all duration-300 hover:border-transparent"
+                >
+                  {/* Gradient Lines */}
+                  <span className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-black to-[#ffa015] scale-x-0 group-hover:scale-x-100 transition-transform duration-500 origin-left"></span>
+                  <span className="absolute bottom-0 left-0 w-full h-1 bg-gradient-to-r from-black to-[#ffa015] scale-x-0 group-hover:scale-x-100 transition-transform duration-500 origin-right"></span>
+
+                  {/* Image */}
+                  <div className="relative aspect-square w-full overflow-hidden">
+                    <Image
+                      src={
+                        item.featuredImage || item.image || "/placeholder.jpg"
+                      }
+                      alt={item.title || "Product"}
+                      fill
+                      className="object-cover"
+                    />
+                  </div>
+
+                  {/* Title */}
+                  <div className="p-4 text-center">
+                    <h3 className="text-lg font-extrabold text-slate-900 group-hover:text-[#ffa015] transition-colors leading-tight">
+                      {item.title}
+                    </h3>
+                  </div>
+                </Link>
+              ))}
             </div>
           ) : (
             <div className="text-center py-12 text-slate-400">
-              No custom products mapped under this layout yet.
+              No products found.
             </div>
           )}
         </div>
@@ -271,7 +244,7 @@ export default function SubCategoryView({ data }) {
 
       {/* 6. DETAILED SEO CONTENT & ACCORDION */}
       <section className="py-24 bg-white">
-        <div className="container mx-auto px-6 ">
+        <div className="container mx-auto px-6">
           {fullDescription && (
             <div
               className="prose prose-slate prose-lg max-w-none mb-20 max-h-[400px] overflow-y-auto pr-4 scrollbar-custom border-b border-slate-100 pb-4"
