@@ -98,7 +98,7 @@ export default function CategoryView({ data }) {
                 <div key={sub._id} className="w-full flex flex-col gap-3">
                   <button
                     onClick={() => setActiveSubcategoryId(sub._id)}
-                    className={`w-full flex rounded-2xl overflow-hidden border-2 text-left transition-all duration-300 h-[130px] relative ${activeSubcategoryId === sub._id ? "border-orange-500 shadow-lg" : "border-slate-100 bg-white hover:border-orange-500/50"}`}
+                    className={`w-full flex  overflow-hidden border-2 text-left transition-all duration-300 h-[130px] relative ${activeSubcategoryId === sub._id ? "border-orange-500 shadow-lg" : "border-slate-100 bg-white hover:border-orange-500/50"}`}
                   >
                     <div className="w-[55%] bg-orange-500 p-4 flex items-center justify-center text-center">
                       <span className="text-xs sm:text-sm font-black text-white uppercase tracking-tighter leading-tight line-clamp-3">
@@ -277,22 +277,29 @@ export default function CategoryView({ data }) {
 
 function ProductCard({ product }) {
   return (
-    <Link href={`/${product.slug}`} className="block w-full group">
-      <div className="w-full flex flex-col bg-white rounded-2xl overflow-hidden border border-slate-100 hover:border-orange-500 shadow-sm hover:shadow-md transition-all duration-300">
-        <div className="aspect-square w-full relative overflow-hidden bg-white">
-          <Image
-            src={product.featuredImage || product.image || "/placeholder.jpg"}
-            alt={product.title}
-            fill
-            sizes="(max-width: 768px) 100vw, 33vw"
-            className="object-contain p-2 group-hover:scale-105 transition-transform duration-500"
-          />
-        </div>
-        <div className="p-3">
-          <h3 className="text-xs md:text-sm font-bold text-slate-900 text-center line-clamp-2 min-h-[36px] group-hover:text-orange-500">
-            {product.title}
-          </h3>
-        </div>
+    <Link
+      href={`/${product.slug}`}
+      className="group relative block bg-white border border-slate-200 transition-all duration-300 hover:border-transparent"
+    >
+      {/* Gradient Lines */}
+      <span className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-black to-[#ffa015] scale-x-0 group-hover:scale-x-100 transition-transform duration-500 origin-left"></span>
+      <span className="absolute bottom-0 left-0 w-full h-1 bg-gradient-to-r from-black to-[#ffa015] scale-x-0 group-hover:scale-x-100 transition-transform duration-500 origin-right"></span>
+
+      {/* Image */}
+      <div className="relative aspect-square w-full overflow-hidden bg-white">
+        <img
+          src={product.featuredImage || product.image || "/placeholder.jpg"}
+          alt={product.title}
+          className="w-full h-full object-cover transition-transform duration-500 ease-out group-hover:scale-105"
+          loading="lazy"
+        />
+      </div>
+
+      {/* Title */}
+      <div className="p-4 text-center">
+        <h3 className="text-lg font-extrabold text-slate-900 group-hover:text-[#ffa015] transition-colors leading-tight">
+          {product.title}
+        </h3>
       </div>
     </Link>
   );

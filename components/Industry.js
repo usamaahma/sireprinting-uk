@@ -83,7 +83,7 @@ export default function IndustrySection({ subcategoriesData }) {
               <div key={sub._id} className="w-full flex flex-col gap-3">
                 <button
                   onClick={() => handleTabClick(sub._id)}
-                  className={`w-full flex rounded-2xl overflow-hidden border-2 text-left transition-all duration-300 h-[130px] sm:h-[130px] relative ${
+                  className={`w-full flex overflow-hidden border-2 text-left transition-all duration-300 h-[130px] sm:h-[130px] relative ${
                     activeSubcategoryId === sub._id
                       ? "border-[#f4a11d] shadow-lg"
                       : "border-gray-100 bg-white hover:border-[#f4a11d]/50"
@@ -223,25 +223,27 @@ function ProductCard({ product }) {
   return (
     <Link
       href={`/${product.slug}`}
-      className="block w-full group cursor-pointer"
+      className="group relative block bg-white border border-slate-200 transition-all duration-300 hover:border-transparent"
     >
-      <div className="w-full flex flex-col bg-white rounded-2xl overflow-hidden border border-gray-100 hover:border-[#f4a11d] shadow-sm hover:shadow-md transition-all duration-300 ease-out hover:-translate-y-0.5">
-        {/* Image */}
-        <div className="aspect-square w-full overflow-hidden bg-white">
-          <img
-            src={product.featuredImage || product.image || "/placeholder.jpg"}
-            alt={product.title}
-            className="w-full h-full object-contain transition-transform duration-500 ease-out group-hover:scale-105"
-            loading="lazy"
-          />
-        </div>
+      {/* Gradient Lines */}
+      <span className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-black to-[#ffa015] scale-x-0 group-hover:scale-x-100 transition-transform duration-500 origin-left"></span>
+      <span className="absolute bottom-0 left-0 w-full h-1 bg-gradient-to-r from-black to-[#ffa015] scale-x-0 group-hover:scale-x-100 transition-transform duration-500 origin-right"></span>
 
-        {/* Title */}
-        <div className="p-3">
-          <h3 className="text-xs md:text-sm font-bold text-gray-900 tracking-tight text-center leading-snug line-clamp-2 min-h-[36px] group-hover:text-[#f4a11d] transition-colors duration-200">
-            {product.title}
-          </h3>
-        </div>
+      {/* Image */}
+      <div className="relative aspect-square w-full overflow-hidden bg-white">
+        <img
+          src={product.featuredImage || product.image || "/placeholder.jpg"}
+          alt={product.title}
+          className="w-full h-full object-cover transition-transform duration-500 ease-out group-hover:scale-105"
+          loading="lazy"
+        />
+      </div>
+
+      {/* Title */}
+      <div className="p-4 text-center">
+        <h3 className="text-lg font-extrabold text-slate-900 group-hover:text-[#ffa015] transition-colors leading-tight">
+          {product.title}
+        </h3>
       </div>
     </Link>
   );
