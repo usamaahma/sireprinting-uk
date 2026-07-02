@@ -1,119 +1,109 @@
 import React from "react";
-import Link from 'next/link';
+import Link from "next/link";
 
 export default function Footer() {
   return (
-    <footer className="bg-[#1a1a1a] text-white pt-16 pb-8 mt-auto font-sans">
-      <div className="container mx-auto px-4 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12">
+    <footer className="bg-slate-950 text-slate-200 pt-20 pb-10 mt-auto font-sans">
+      <div className="container mx-auto px-6 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12">
         {/* Column 1: Brand & About */}
         <div className="space-y-6">
           <div className="flex items-center gap-1">
             <span className="text-2xl font-black text-white italic">Sire</span>
-            <span className="text-2xl font-light text-gray-400 italic border-l border-orange-500 pl-2">
+            <span className="text-2xl font-light text-slate-400 italic border-l border-[#ffa015] pl-2">
               Printing
             </span>
           </div>
-          <div className="relative group">
+          <div className="relative group max-w-sm">
             <input
               type="email"
-              placeholder="Subscribe our newsletter"
-              className="w-full bg-white text-black py-3 px-4 pr-12 focus:outline-none"
+              placeholder="Your email address"
+              className="w-full bg-slate-900 text-white py-3 px-4 border border-slate-800 focus:border-[#ffa015] focus:outline-none transition-colors"
             />
-            <button className="absolute right-0 top-0 h-full px-4 bg-orange-500 text-white">
-              ✈️
+            <button className="absolute right-0 top-0 h-full px-4 bg-[#ffa015] hover:bg-[#e08d13] text-white transition-colors">
+              ➔
             </button>
           </div>
-          <p className="text-xs text-gray-400 leading-relaxed">
-            Subscribe our newsletter and stay updated with our new products,
-            policies and terms.
+          <p className="text-xs text-slate-500 leading-relaxed">
+            Subscribe to our newsletter for exclusive packaging trends, product
+            updates, and industry insights.
           </p>
         </div>
 
         {/* Column 2: Contact Info */}
         <div>
-          <h4 className="text-orange-500 font-bold uppercase text-sm mb-6 tracking-wider">
+          <h4 className="text-[#ffa015] font-bold uppercase text-xs mb-6 tracking-[0.2em]">
             Get In Touch
           </h4>
-          <ul className="space-y-4 text-sm text-gray-300">
-            <li className="flex items-start gap-3">
-              <span>📞</span> (332) 222-4710
+          <ul className="space-y-4 text-sm text-slate-400">
+            <li className="flex items-start gap-3 hover:text-white transition-colors">
+              <span className="text-[#ffa015]">📞</span> (332) 222-4710
+            </li>
+            <li className="flex items-start gap-3 hover:text-white transition-colors">
+              <span className="text-[#ffa015]">✉️</span>{" "}
+              support@sireprinting.com
             </li>
             <li className="flex items-start gap-3">
-              <span>✉️</span> support@sireprinting.com
+              <span className="text-[#ffa015]">📍</span> 626 92nd Street
+              Brooklyn NY 11220
             </li>
-            <li className="flex items-start gap-3">
-              <span>📍</span> 626 92nd Street Brooklyn NY 11220
-            </li>
-            <li className="flex items-start gap-3 text-orange-400">
-              <span>🚚</span> 100% Free Shipping all across USA
+            <li className="flex items-start gap-3 text-[#ffa015] font-semibold">
+              <span>🚚</span> 100% Free Shipping USA
             </li>
           </ul>
         </div>
 
         {/* Column 3: Categories */}
         <div>
-          <h4 className="text-orange-500 font-bold uppercase text-sm mb-6 tracking-wider">
-            Hot Selling Categories
+          <h4 className="text-[#ffa015] font-bold uppercase text-xs mb-6 tracking-[0.2em]">
+            Hot Selling
           </h4>
-          <ul className="space-y-2 text-sm text-gray-400">
-            <li className="hover:text-orange-400 cursor-pointer">
-              Kraft Paper Boxes
-            </li>
-            <li className="hover:text-orange-400 cursor-pointer">
-              Custom Retail Packaging
-            </li>
-            <li className="hover:text-orange-400 cursor-pointer">
-              Cardboard Boxes
-            </li>
-            <li className="hover:text-orange-400 cursor-pointer">
-              Christmas Boxes
-            </li>
-            <li className="hover:text-orange-400 cursor-pointer">
-              Custom Display Boxes
-            </li>
-            <li className="hover:text-orange-400 cursor-pointer">
-              Woven Labels
-            </li>
+          <ul className="space-y-3 text-sm text-slate-400">
+            {[
+              "Kraft Paper Boxes",
+              "Custom Retail",
+              "Cardboard Boxes",
+              "Christmas Boxes",
+              "Display Boxes",
+              "Woven Labels",
+            ].map((link) => (
+              <li
+                key={link}
+                className="hover:text-[#ffa015] hover:translate-x-1 transition-all cursor-pointer"
+              >
+                {link}
+              </li>
+            ))}
           </ul>
         </div>
 
         {/* Column 4: Useful Links */}
         <div>
-          <h4 className="text-orange-500 font-bold uppercase text-sm mb-6 tracking-wider">
+          <h4 className="text-[#ffa015] font-bold uppercase text-xs mb-6 tracking-[0.2em]">
             Useful Links
           </h4>
-          <ul className="space-y-2 text-sm text-gray-400">
-            <li className="hover:text-orange-400 cursor-pointer">About Us</li>
-            <li className="hover:text-orange-400 cursor-pointer">
-              <Link href="/contactus">
-                Contact Us
-              </Link>
-            </li>
-            <li className="hover:text-orange-400 cursor-pointer">Portfolio</li>
-            <li className="hover:text-orange-400 cursor-pointer">
-              <Link href="/blogs">
-                Blogs
-              </Link>
-            </li>
-            <li className="hover:text-orange-400 cursor-pointer">Sitemap</li>
-            <li className="hover:text-orange-400 cursor-pointer">
-              <Link href="/privacypolicy">
-                Privacy Policy
-              </Link>
-            </li>
-
-            <li className="hover:text-orange-400 cursor-pointer">
-              <Link href="/termsandconditions">
-                Terms And Conditions
-              </Link>
-            </li>
+          <ul className="space-y-3 text-sm text-slate-400">
+            {[
+              { name: "About Us", path: "/about" },
+              { name: "Contact Us", path: "/contactus" },
+              { name: "Portfolio", path: "/portfolio" },
+              { name: "Blogs", path: "/blogs" },
+              { name: "Privacy Policy", path: "/privacypolicy" },
+              { name: "Terms & Conditions", path: "/termsandconditions" },
+            ].map((link) => (
+              <li
+                key={link.name}
+                className="hover:text-[#ffa015] transition-colors"
+              >
+                <Link href={link.path}>{link.name}</Link>
+              </li>
+            ))}
           </ul>
         </div>
       </div>
 
-      {/* --- COPYRIGHT & BOTTOM BAR --- */}
-      <div className="container mx-auto px-4 mt-16 pt-8 border-t border-gray-800 flex flex-col md:flex-row justify-center items-center gap-4 text-[10px] text-gray-500 uppercase tracking-widest">
-        <p>Copyright © 2011 - 2026 Sire Printing | The Custom Websites</p>
+      {/* Bottom Bar */}
+      <div className="container mx-auto px-6 mt-20 pt-8 border-t border-slate-900 flex justify-center items-center text-[10px] text-slate-600 uppercase tracking-widest">
+        <p>Copyright © 2011 - 2026 Sire Printing | All Rights Reserved</p>
       </div>
     </footer>
   );
