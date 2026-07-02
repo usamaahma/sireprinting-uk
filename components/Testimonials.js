@@ -40,14 +40,14 @@ export default function Testimonials() {
           {/* Left Side: Compact Content */}
           <div className="max-w-md">
             <div className="flex items-center gap-2 mb-3">
-              <span className="w-2 h-2 rounded-full bg-orange-500 animate-pulse"></span>
-              <span className="text-orange-600 font-bold uppercase tracking-widest text-[10px]">
+              <span className="w-2 h-2 rounded-full bg-[#ffa015] animate-pulse"></span>
+              <span className="text-[#ffa015] font-bold uppercase tracking-widest text-[15px]">
                 Customer Feedback
               </span>
             </div>
 
             <h2 className="text-4xl md:text-5xl font-black tracking-tight leading-tight mb-4">
-              Trusted by <span className="text-orange-500">Brands.</span>
+              Trusted by <span className="text-[#ffa015]">Brands.</span>
             </h2>
 
             <p className="text-slate-500 text-base mb-8 leading-relaxed">
@@ -58,7 +58,7 @@ export default function Testimonials() {
             <div className="flex flex-col sm:flex-row gap-3">
               <a
                 href="#"
-                className="px-6 py-3 bg-slate-900 text-white text-xs font-bold uppercase rounded-lg hover:bg-orange-500 transition-colors flex items-center justify-center gap-2"
+                className="px-6 py-3 bg-slate-900 text-white text-xs font-bold uppercase rounded-lg hover:bg-[#ffa015] transition-colors flex items-center justify-center gap-2"
               >
                 Write a Review
                 <svg

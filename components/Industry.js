@@ -59,18 +59,31 @@ export default function IndustrySection({ subcategoriesData }) {
     <div className="bg-white py-10 md:py-20 antialiased">
       <div className="max-w-[1400px] mx-auto px-4 md:px-10">
         {/* Title Section */}
-        <div className="flex flex-col items-center mb-12 text-center">
-          <h2 className="text-3xl md:text-3xl font-black text-black uppercase tracking-tighter">
-            Explore Our{" "}
-            <span className="text-[#f4a11d]">Custom Packaging Boxes</span> UK
-            Range
+        <div className="flex flex-col items-center mb-16 text-center px-6">
+          {/* Sub-heading label */}
+          <span className="text-[#f4a11d] font-bold tracking-[0.2em] uppercase text-xs mb-3">
+            Tailored Solutions
+          </span>
+
+          {/* Main Heading */}
+          <h2 className="text-4xl md:text-5xl font-black text-slate-900 uppercase tracking-tighter leading-[1.1] mb-6 max-w-7xl">
+            Explore Our <span className="text-[#f4a11d]">Custom Packaging</span>{" "}
+            Boxes UK Range
           </h2>
-          <p>
-            Every product comes fully customised — your dimensions, your finish,
+
+          {/* Description with better readability */}
+          <p className="text-slate-600 text-lg md:text-xl max-w-5xl leading-relaxed font-medium">
+            Every product is fully customised — your dimensions, your finish,
             your brand. From single-colour prints to premium foil-stamped rigid
-            boxes, we cover the full spectrum of custom packaging needs.
+            boxes, we cover the full spectrum of your packaging needs.
           </p>
-          <div className="w-20 h-2 bg-[#f4a11d] mt-4 rounded-full"></div>
+
+          {/* Stylized Divider */}
+          <div className="flex items-center gap-2 mt-8">
+            <div className="w-12 h-1 bg-[#f4a11d] rounded-full"></div>
+            <div className="w-3 h-3 rotate-45 border-2 border-[#f4a11d]"></div>
+            <div className="w-12 h-1 bg-[#f4a11d] rounded-full"></div>
+          </div>
         </div>
 
         {/* Desktop par Parent container ko relational (relative) banaya hai aur h-full execution di hai 

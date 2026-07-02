@@ -59,7 +59,7 @@ export default function FAQCompact() {
           <div className="w-full">
             <h2 className="text-3xl md:text-5xl font-black text-slate-900 mb-6 tracking-tight">
               Frequently Asked{" "}
-              <span className="text-orange-500 italic">Questions</span>
+              <span className="text-[#ffa015] italic">Questions</span>
             </h2>
             <p className="text-slate-500 text-lg">
               Find solutions to common queries about our services.
@@ -75,12 +75,12 @@ export default function FAQCompact() {
                     className="w-full flex items-center justify-between py-3 text-left focus:outline-none"
                   >
                     <span
-                      className={`text-base font-bold ${activeIndex === index ? "text-orange-600" : "text-slate-800"}`}
+                      className={`text-base font-bold ${activeIndex === index ? "text-[#ffa015]" : "text-slate-800"}`}
                     >
                       {faq.question}
                     </span>
                     <span
-                      className={`transition-transform duration-300 ${activeIndex === index ? "rotate-45 text-orange-500" : "text-slate-300"}`}
+                      className={`transition-transform duration-300 ${activeIndex === index ? "rotate-45 text-[#ffa015]" : "text-slate-300"}`}
                     >
                       <svg
                         className="w-5 h-5"
@@ -153,7 +153,7 @@ export default function FAQCompact() {
                 ></textarea>
                 <button
                   type="submit"
-                  className="w-full bg-orange-500 hover:bg-orange-600 text-white font-bold py-3.5 rounded-xl transition-all uppercase tracking-widest text-[10px]"
+                  className="w-full bg-[#ffa015] hover:border border-[#ffa015] hover:bg-[#ffffff] hover:text-[#ffa015] text-white font-bold py-3.5 rounded-xl transition-all uppercase tracking-widest text-[10px]"
                 >
                   Send Request
                 </button>
