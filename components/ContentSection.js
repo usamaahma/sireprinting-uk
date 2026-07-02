@@ -87,7 +87,7 @@ export default function ContentSection() {
       </section>
 
       {/* Trust Section */}
-      <section className="py-16 bg-slate-900 text-white rounded-[3rem] mx-4 md:mx-10 my-10">
+      <section className="py-16 bg-black text-white rounded-[3rem] mx-4 md:mx-10 my-10">
         <div className="container mx-auto px-8 md:px-16 flex flex-col lg:flex-row gap-16 items-center">
           <div className="lg:w-1/2">
             <h2 className="text-4xl md:text-6xl font-black mb-8 leading-tight">
@@ -96,7 +96,7 @@ export default function ContentSection() {
             </h2>
             <a
               href="/get-a-quote"
-              className="inline-block  bg-black hover:bg-[#ffa015] hover:text-[#ffffff] border border-[#ffffff] text-[#ffa015] px-10 py-5 rounded-full font-bold text-lg transition-all"
+              className="inline-block bg-[#000000] hover:bg-[#ffa015] hover:text-[#ffffff] border border-[#ffffff] text-[#ffa015] px-10 py-5 rounded-full font-bold text-lg transition-all"
             >
               Start Your Order Today
             </a>
@@ -104,17 +104,17 @@ export default function ContentSection() {
           {/* Stats section */}
           <div className="lg:w-1/2">
             <div className="grid grid-cols-2 gap-4">
-              <div className="bg-slate-800 p-8 rounded-3xl border border-slate-700">
+              <div className="bg-[#000000] p-8 rounded-3xl border border-[#ffffff] ">
                 <div className="text-4xl font-black text-[#ffa015] mb-2">
                   500+
                 </div>
-                <div className="text-slate-400">UK Brands Served</div>
+                <div className="text-[#ffffff]">UK Brands Served</div>
               </div>
-              <div className="bg-slate-800 p-8 rounded-3xl border border-slate-700">
+              <div className="bg-[#000000] p-8 rounded-3xl border border-[#ffffff]">
                 <div className="text-4xl font-black text-[#ffa015] mb-2">
                   4.9★
                 </div>
-                <div className="text-slate-400">Customer Rating</div>
+                <div className="text-[#ffffff]">Customer Rating</div>
               </div>
             </div>
           </div>

@@ -119,7 +119,7 @@ export default function FAQCompact() {
 
           {/* Right Side: Wider but Short Form */}
           <div className="w-full">
-            <div className="bg-slate-900 p-6 md:p-8 rounded-[2rem] shadow-xl relative overflow-hidden">
+            <div className="bg-[#000000]  p-6 md:p-8 rounded-[2rem] shadow-xl relative overflow-hidden">
               <h3 className="text-xl font-bold text-white mb-1">
                 Can’t Find an Answer?
               </h3>
@@ -132,24 +132,24 @@ export default function FAQCompact() {
                   <input
                     type="text"
                     placeholder="Name"
-                    className="w-full bg-slate-800 border border-slate-700 rounded-xl px-4 py-3 text-white placeholder:text-slate-500 focus:outline-none focus:border-orange-500 text-sm"
+                    className="w-full bg-black border border-slate-700 rounded-xl px-4 py-3 text-white placeholder:text-slate-500 focus:outline-none focus:border-orange-500 text-sm"
                   />
                   <input
                     type="email"
                     placeholder="Email"
-                    className="w-full bg-slate-800 border border-slate-700 rounded-xl px-4 py-3 text-white placeholder:text-slate-500 focus:outline-none focus:border-orange-500 text-sm"
+                    className="w-full bg-black border border-slate-700 rounded-xl px-4 py-3 text-white placeholder:text-slate-500 focus:outline-none focus:border-orange-500 text-sm"
                   />
                 </div>
                 <input
                   type="text"
                   placeholder="Subject"
-                  className="w-full bg-slate-800 border border-slate-700 rounded-xl px-4 py-3 text-white placeholder:text-slate-500 focus:outline-none focus:border-orange-500 text-sm"
+                  className="w-full bg-black border border-slate-700 rounded-xl px-4 py-3 text-white placeholder:text-slate-500 focus:outline-none focus:border-orange-500 text-sm"
                 />
 
                 <textarea
                   rows="3"
                   placeholder="Message..."
-                  className="w-full bg-slate-800 border border-slate-700 rounded-xl px-4 py-3 text-white placeholder:text-slate-500 focus:outline-none focus:border-orange-500 text-sm resize-none"
+                  className="w-full bg-black border border-slate-700 rounded-xl px-4 py-3 text-white placeholder:text-slate-500 focus:outline-none focus:border-orange-500 text-sm resize-none"
                 ></textarea>
                 <button
                   type="submit"

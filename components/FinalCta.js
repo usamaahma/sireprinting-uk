@@ -25,7 +25,7 @@ const PackagingSections = () => {
             <span className="inline-flex px-8 py-4 rounded-full bg-[#ffa015] text-[#ffffff] font-bold text-xs uppercase tracking-widest">
               Industries We Serve
             </span>
-            <h2 className="mt-6 text-4xl md:text-5xl font-black text-slate-900 tracking-tighter">
+            <h2 className="mt-6 text-4xl md:text-5xl font-black text-[#000000]  tracking-tighter">
               Custom Packaging Built for Every UK Industry
             </h2>
           </div>
@@ -34,7 +34,7 @@ const PackagingSections = () => {
             {industries.map((industry) => (
               <div
                 key={industry.title}
-                className="relative group bg-white p-8 text-center border border-slate-200 overflow-hidden"
+                className="relative group bg-white p-8 text-center border border-[#000000]  overflow-hidden"
               >
                 {/* 4 Gradient Border Lines */}
                 <span className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-black to-[#f4a11d] scale-x-0 group-hover:scale-x-100 transition-transform duration-500 origin-left z-10"></span>
@@ -43,7 +43,7 @@ const PackagingSections = () => {
                 <span className="absolute top-0 right-0 w-1 h-full bg-gradient-to-b from-black to-[#f4a11d] scale-y-0 group-hover:scale-y-100 transition-transform duration-500 origin-top z-10"></span>
 
                 <div className="text-5xl mb-6">{industry.icon}</div>
-                <h3 className="text-xl font-bold text-slate-900">
+                <h3 className="text-xl font-bold text-[#000000] ">
                   {industry.title}
                 </h3>
               </div>
@@ -53,15 +53,15 @@ const PackagingSections = () => {
           {/* Expert Help Box */}
           <div className="mt-16 rounded-[2rem] border border-orange-100 bg-white p-10 flex flex-col lg:flex-row items-center justify-between gap-6 shadow-sm">
             <div>
-              <h3 className="text-2xl font-black text-slate-900">
+              <h3 className="text-2xl font-black text-[#000000] ">
                 Not sure which box suits your product?
               </h3>
-              <p className="mt-2 text-slate-600 font-medium">
+              <p className="mt-2 text-[#000000]  font-medium">
                 Our packaging experts are ready to help you choose the right
                 material and format.
               </p>
             </div>
-            <button className="whitespace-nowrap rounded-full bg-slate-900 px-8 py-4 font-bold text-white transition hover:bg-[#f4a11d]">
+            <button className="whitespace-nowrap rounded-full bg-[#000000]  px-8 py-4 font-bold text-white transition hover:bg-[#f4a11d]">
               Talk to a Packaging Expert
             </button>
           </div>
@@ -71,7 +71,7 @@ const PackagingSections = () => {
       {/* Final CTA */}
       <section className="pb-10">
         <div className="container mx-auto px-4">
-          <div className="relative overflow-hidden rounded-[32px] bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 p-8 md:p-14 text-center">
+          <div className="relative overflow-hidden rounded-[32px] bg-gradient-to-br from-[#000000] via-slate-800 to-[#000000]  p-8 md:p-14 text-center">
             <div className="absolute -top-24 -right-24 h-72 w-72 rounded-full bg-brand-orange/20 blur-3xl" />
             <div className="absolute -bottom-24 -left-24 h-72 w-72 rounded-full bg-brand-orange/10 blur-3xl" />
 
@@ -87,7 +87,7 @@ const PackagingSections = () => {
                 </span>
               </h2>
 
-              <p className="mt-6 text-lg text-slate-300">
+              <p className="mt-6 text-lg text-slate-200 ">
                 Thousands of UK businesses have already made the switch to
                 packaging that sells. Join them and see the difference that
                 purposeful, well-crafted custom boxes make to your brand,
