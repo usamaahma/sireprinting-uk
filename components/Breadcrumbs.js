@@ -3,7 +3,8 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 
-export default function Breadcrumbs() {
+// IsWhite prop default mein false hai, aap <Breadcrumbs isWhite={true} /> call kar sakte hain
+export default function Breadcrumbs({ isWhite = false }) {
   const pathname = usePathname();
 
   const pathSegments = pathname.split("/").filter((item) => item !== "");
@@ -17,17 +18,23 @@ export default function Breadcrumbs() {
       .join(" ");
   };
 
+  // Color classes define kar rahe hain
+  const textColor = isWhite ? "text-white" : "text-[#222222]";
+  const subTextColor = isWhite ? "text-white/70" : "text-gray-600";
+  const hoverColor = isWhite ? "hover:text-white" : "hover:text-black";
+  const dividerColor = isWhite ? "text-white/40" : "text-gray-400";
+
   return (
     <nav
       aria-label="Breadcrumb"
-      className="relative z-50 block w-full w-max-screen mx-auto pt-6 pb-2 text-lg font-medium text-[#222222] clear-both bg-transparent col-span-full"
+      className={`relative z-50 block w-full mx-auto pt-6 pb-2 text-lg font-medium ${textColor} clear-both bg-transparent col-span-full`}
     >
       <ol className="flex flex-wrap items-center space-x-1 md:space-x-2">
         {/* Home Link */}
         <li className="inline-flex items-center">
           <Link
             href="/"
-            className="text-gray-600 hover:text-black transition-colors inline-flex items-center"
+            className={`${subTextColor} ${hoverColor} transition-colors inline-flex items-center`}
           >
             <svg
               className="w-4 h-4 transition-colors"
@@ -52,11 +59,13 @@ export default function Breadcrumbs() {
 
           return (
             <li key={href} className="inline-flex items-center">
-              <span className="mx-2 text-gray-400 text-xs select-none">»</span>
+              <span className={`mx-2 ${dividerColor} text-xs select-none`}>
+                »
+              </span>
 
               {isLast ? (
                 <span
-                  className="font-semibold text-black capitalize"
+                  className={`font-semibold ${textColor} capitalize`}
                   aria-current="page"
                 >
                   {formatLabel(segment)}
@@ -64,7 +73,7 @@ export default function Breadcrumbs() {
               ) : (
                 <Link
                   href={href}
-                  className="text-gray-600 hover:text-black transition-colors capitalize"
+                  className={`${subTextColor} ${hoverColor} transition-colors capitalize`}
                 >
                   {formatLabel(segment)}
                 </Link>
