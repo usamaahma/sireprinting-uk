@@ -12,9 +12,15 @@ import {
   ShieldCheck,
   HelpCircle,
   FileText,
+  Calendar,
+  PenTool,
+  Truck,
 } from "lucide-react";
 import PerksBar from "@/components/PerksBar";
 import Breadcrumbs from "../../../components/Breadcrumbs";
+import SirePrintingLayout from "../../../components/productsections/secondsection";
+import SirePrintingTabs from "../../../components/productsections/howtoplaceorder";
+import Siblings from "../../../components/productsections/siblings";
 
 export default function ProductView({
   data,
@@ -54,6 +60,17 @@ export default function ProductView({
     }
     return null;
   });
+  const [siblings, setSiblings] = useState([]);
+  const [position, setPosition] = useState({ x: 0, y: 0 });
+  const [showZoom, setShowZoom] = useState(false);
+
+  const handleMouseMove = (e) => {
+    const { left, top, width, height } =
+      e.currentTarget.getBoundingClientRect();
+    const x = ((e.clientX - left) / width) * 100;
+    const y = ((e.clientY - top) / height) * 100;
+    setPosition({ x, y });
+  };
 
   // 3. Dynamic Interactive Pricing Matrix Calculator States
   const [dimensions, setDimensions] = useState({
@@ -199,7 +216,21 @@ export default function ProductView({
       }
     }
   };
-
+  useEffect(() => {
+    // Agar subcategory ID mojood hai toh fetch karein
+    if (data?.subcategory) {
+      fetch(`/api/products/subcategory/${data.subcategory}`)
+        .then((res) => res.json())
+        .then((res) => {
+          if (res.success) {
+            // Current product ko list se filter kar denge taake wo khud wahan na dikhe
+            const filtered = res.data.filter((p) => p._id !== data._id);
+            setSiblings(filtered);
+          }
+        })
+        .catch((err) => console.error("Error fetching siblings:", err));
+    }
+  }, [data.subcategory, data._id]);
   return (
     <main className="min-h-screen bg-white text-slate-900 font-sans antialiased">
       <section className="py-10 lg:py-14 bg-white">
@@ -237,7 +268,7 @@ export default function ProductView({
                 ))}
               </div>
 
-              <div className="col-span-10 relative aspect-[4/3] bg-white border border-slate-200 rounded-2xl overflow-hidden flex items-center justify-center p-4">
+              {/* <div className="col-span-10 relative aspect-[4/3] bg-white border border-slate-200 rounded-2xl overflow-hidden flex items-center justify-center p-4">
                 <Image
                   src={activeImage}
                   alt={displayData.title}
@@ -245,13 +276,45 @@ export default function ProductView({
                   className="object-contain p-4"
                   priority
                 />
+              </div> */}
+              <div
+                // Fixed height add karein yahan
+                className="col-span-10 relative bg-white overflow-hidden flex items-center justify-center cursor-zoom-in h-[500px] w-full"
+                onMouseMove={handleMouseMove}
+                onMouseEnter={() => setShowZoom(true)}
+                onMouseLeave={() => setShowZoom(false)}
+              >
+                {/* Original Image */}
+                <Image
+                  src={activeImage}
+                  alt={displayData.title}
+                  fill
+                  // object-contain ki jagah agar aap chahte hain
+                  // ke container poora fill ho toh 'object-cover' try karein
+                  className="object-contain p-4"
+                  priority
+                />
+
+                {/* Zoom Overlay */}
+                {showZoom && (
+                  <div
+                    className="absolute inset-0 z-50 pointer-events-none"
+                    style={{
+                      backgroundImage: `url(${activeImage})`,
+                      backgroundPosition: `${position.x}% ${position.y}%`,
+                      backgroundSize: "200%",
+                      backgroundRepeat: "no-repeat",
+                      backgroundColor: "white",
+                    }}
+                  />
+                )}
               </div>
             </div>
 
             {/* RIGHT WORKSPACE: CONFIGURATOR PANEL */}
             <div className="lg:col-span-6 space-y-5">
               <div className="space-y-1.5">
-                <h1 className="text-2xl md:text-3xl font-extrabold text-[#002f6c] tracking-tight leading-tight">
+                <h1 className="text-2xl md:text-3xl font-extrabold text-[#ffa015] tracking-tight leading-tight">
                   {displayData.title}
                 </h1>
 
@@ -285,10 +348,28 @@ export default function ProductView({
               <p className="text-slate-600 text-xs md:text-sm leading-relaxed border-l-2 border-slate-300 pl-3">
                 {displayData.shortDescription}
               </p>
+              <div className="flex gap-3 text-[11px] font-bold text-slate-700 bg-slate-50 border border-slate-200 p-4 rounded-xl">
+                {/* Free Shipping */}
+                <div className="flex items-center gap-3">
+                  <Truck size={18} className="text-emerald-600" />
+                  <span>FREE shipping on bulk orders nationwide</span>
+                </div>
 
+                {/* Design Support */}
+                <div className="flex items-center gap-3">
+                  <PenTool size={18} className="text-blue-600" />
+                  <span>Free design support & 3D mockups</span>
+                </div>
+
+                {/* Delivery Time */}
+                <div className="flex items-center gap-3">
+                  <Calendar size={18} className="text-amber-600" />
+                  <span>Ships in 8–12 business days</span>
+                </div>
+              </div>
               {/* INTERACTIVE PACKAGING MATRIX CALCULATOR FORM */}
               <div className="bg-slate-50 border border-slate-200 rounded-2xl p-4 md:p-5 space-y-4 shadow-sm">
-                <div className="flex items-center justify-between border-b border-slate-200 pb-2.5">
+                {/* <div className="flex items-center justify-between border-b border-slate-200 pb-2.5">
                   <h3 className="text-xs font-black uppercase tracking-wider text-slate-800 flex items-center gap-1.5">
                     <Box size={14} className="text-[#002f6c]" /> 1. Sizing
                     Dimensions & Run Parameters
@@ -296,7 +377,7 @@ export default function ProductView({
                   <span className="text-[10px] text-slate-400 font-bold uppercase flex items-center gap-0.5 cursor-pointer hover:text-slate-600">
                     <HelpCircle size={12} /> Die Guidelines
                   </span>
-                </div>
+                </div> */}
 
                 <div className="grid grid-cols-2 sm:grid-cols-4 gap-2.5">
                   {["length", "width", "depth"].map((dim) => (
@@ -398,7 +479,7 @@ export default function ProductView({
               </div>
 
               {/* STRUCTURAL VARIANT SELECTOR DROPDOWN */}
-              {variants && variants.length > 0 && (
+              {/* {variants && variants.length > 0 && (
                 <div className="space-y-1.5 border border-slate-200 rounded-xl p-3.5 bg-white shadow-sm">
                   <label className="text-[10px] font-black uppercase tracking-wider text-slate-400 block">
                     Choose Structural Style Variant:
@@ -429,40 +510,44 @@ export default function ProductView({
                     />
                   </div>
                 </div>
-              )}
-
-              <div className="grid grid-cols-2 gap-2 text-[11px] font-bold text-slate-700 bg-slate-50 border border-slate-200 p-3 rounded-xl">
-                <div className="flex items-center gap-1.5 text-emerald-700">
-                  <Check
-                    size={14}
-                    strokeWidth={3}
-                    className="bg-emerald-100 p-0.5 rounded-full"
-                  />{" "}
-                  Free Doorstep Delivery
-                </div>
-                <div className="flex items-center gap-1.5 text-[#002f6c]">
-                  <ShieldCheck size={14} /> Certified Premium Grades Verified
-                </div>
-              </div>
+              )} */}
 
               {/* PRICING ROW / CTA CALLOUT ENGINE */}
               <div className="flex items-center justify-between border-t border-slate-200 pt-4 gap-4">
                 <div>
-                  <p className="text-[9px] font-black text-slate-400 uppercase tracking-widest">
-                    Estimated Unit Price
-                  </p>
-                  <div className="flex items-baseline gap-1">
-                    <span className="text-3xl font-black text-[#002f6c]">
+                  {/* Deal Price row */}
+                  <div className="flex items-center gap-2">
+                    <span className="text-slate-600 font-medium">
+                      Deal Price:
+                    </span>
+                    <span className="text-3xl font-bold text-[#ffa015]">
                       ${displayData.salePrice || displayData.price}
                     </span>
-                    {displayData.salePrice > 0 && (
-                      <span className="text-xs text-slate-400 line-through font-semibold ml-1">
-                        ${displayData.price}
+                  </div>
+
+                  {/* List Price and Save % row */}
+                  <div className="flex items-center gap-3 text-sm">
+                    <span className="text-slate-500">
+                      List Price:{" "}
+                      <span className="line-through">${displayData.price}</span>
+                    </span>
+                    {displayData.salePrice && (
+                      <span className="text-green-700 font-bold">
+                        Save{" "}
+                        {Math.round(
+                          ((displayData.price - displayData.salePrice) /
+                            displayData.price) *
+                            100,
+                        )}
+                        %
                       </span>
                     )}
-                    <span className="text-[10px] text-slate-500 font-bold ml-1">
-                      / unit
-                    </span>
+                  </div>
+
+                  {/* MOQ row */}
+                  <div className="text-slate-500 text-sm mt-1">
+                    Per unit · MOQ{" "}
+                    <span className="text-[#ffa015] font-bold">50 boxes</span>
                   </div>
                 </div>
 
@@ -473,7 +558,7 @@ export default function ProductView({
                       `Quote pipeline locked on Item Identifier: ${displayData.sku} (ID: ${displayData.id})`,
                     )
                   }
-                  className="bg-[#002f6c] hover:bg-blue-950 text-white font-black text-xs tracking-wider uppercase px-6 py-3 rounded-xl transition-all shadow-md flex items-center gap-1.5"
+                  className="bg-[#ffa015] hover:bg-blue-950 text-white font-black text-xs tracking-wider uppercase px-6 py-3 rounded-xl transition-all shadow-md flex items-center gap-1.5"
                 >
                   Get Custom Quote <ArrowRight size={14} strokeWidth={2.5} />
                 </button>
@@ -585,13 +670,15 @@ export default function ProductView({
               )}
             </div>
           </div>
-
+          <PerksBar />
+          <SirePrintingLayout />
+          <SirePrintingTabs />
           {/* FIXED HEIGHT SCROLLABLE FULL DESCRIPTION SECTION */}
           {displayData.fullDescription && (
             <div className="mt-14 border border-slate-200 rounded-2xl bg-slate-50/50 p-6 shadow-sm">
               <div className="flex items-center gap-2 border-b border-slate-200 pb-3 mb-4">
-                <FileText size={18} className="text-[#002f6c]" />
-                <h2 className="text-lg font-extrabold text-[#002f6c]">
+                <FileText size={18} className="text-[#ffa015]" />
+                <h2 className="text-lg font-extrabold text-[##ffa015]">
                   Product Structural Specifications Summary
                 </h2>
               </div>
@@ -654,9 +741,8 @@ export default function ProductView({
             </div>
           )}
         </div>
+        <Siblings products={siblings} />
       </section>
-
-      <PerksBar />
     </main>
   );
 }
