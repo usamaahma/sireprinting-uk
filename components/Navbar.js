@@ -115,7 +115,7 @@ export default function Navbar() {
             {/* Logo */}
             <Link href="/" className="flex-shrink-0">
               <img
-                src="https://sireprinting.com/img/brand/Sire-Printing.png"
+                src="../logos/sire-printing-uk-logo.svg"
                 alt="Sire Printing"
                 className="h-[52px] w-auto object-contain"
               />
