@@ -97,38 +97,6 @@ export default function CategoryView({ data }) {
                 <span className="absolute bottom-0 left-0 w-1/3 h-[3px] bg-[#ffa015]" />
                 <span className="absolute bottom-0 left-0 w-[3px] h-1/3 bg-[#ffa015]" />
               </div>
-
-              {/* ── Wholesale mini-card ── */}
-              <div className="w-44 shrink-0 shadow-2xl shadow-black/50 overflow-hidden border-2 border-[#ffa015]">
-                {" "}
-                <div className="bg-black border-b-2 border-[#ffa015] px-4 py-3">
-                  <h3 className="text-white font-black text-sm uppercase leading-snug tracking-tight">
-                    Wholesale
-                    <br />
-                    Box Orders
-                  </h3>
-                </div>
-                <ul className="bg-white px-4 py-3 space-y-2.5">
-                  {[
-                    "MOQ from 50 units",
-                    "Free 3D mockups",
-                    "Free shipping",
-                    "4–7 day turnaround",
-                  ].map((item) => (
-                    <li key={item} className="flex items-center gap-2">
-                      <span className="w-1.5 h-1.5 rounded-full bg-[#ffa015] shrink-0" />
-                      <span className="text-[11px] text-black font-semibold leading-snug">
-                        {item}
-                      </span>
-                    </li>
-                  ))}
-                </ul>
-                <div className="bg-white px-4 pb-4">
-                  <button className="w-full bg-[#ffa015] text-black py-2.5 text-[11px] font-black uppercase tracking-wider hover:bg-black hover:text-[#ffa015] transition-colors duration-200">
-                    Get Category Quote
-                  </button>
-                </div>
-              </div>
             </div>
           </div>
         </div>
@@ -140,16 +108,50 @@ export default function CategoryView({ data }) {
       <section className="py-24 bg-white">
         <div className="container mx-auto px-6">
           {/* Section header */}
-          <div className="mb-16">
-            <p className="text-[#ffa015] font-black uppercase tracking-[0.2em] text-xs mb-3">
-              Browse Collection
-            </p>
-            <h2 className="text-4xl lg:text-5xl font-black text-black uppercase leading-tight">
-              Custom <span className="text-[#ffa015]">Packaging</span> Boxes
-            </h2>
-            <div className="mt-4 w-16 h-[3px] bg-[#ffa015]" />
-          </div>
+          <div className="flex flex-col lg:flex-row lg:items-start lg:justify-between gap-8 mb-10">
+            <div className="mb-16">
+              <p className="text-[#ffa015] font-black uppercase tracking-[0.2em] text-xs mb-3">
+                Browse Collection
+              </p>
+              <h2 className="text-4xl lg:text-5xl font-black text-black uppercase leading-tight">
+                Custom <span className="text-[#ffa015]">Packaging</span> Boxes
+              </h2>
+              <div className="mt-4 w-16 h-[3px] bg-[#ffa015]" />
+            </div>
+            {/* Horizontal Wholesale Card */}
+            <div className="w-auto height-auto overflow-hidden bg-white shadow-xl">
+              {/* Header */}
+              <div className="bg-black px-4 py-3">
+                <h3 className="text-white font-black text-sm uppercase leading-tight text-center">
+                  Wholesale Box Orders
+                </h3>
+              </div>
 
+              {/* Features */}
+              <div className="px-4 py-4">
+                <div className="flex gap-x-5 gap-y-3">
+                  {[
+                    "MOQ from 50 units",
+                    "Free 3D Mockups",
+                    "Free Shipping",
+                    "4–7 Day Turnaround",
+                  ].map((item) => (
+                    <div key={item} className="flex items-center gap-2">
+                      <span className="h-1.5 w-1.5 rounded-full bg-[#ffa015] shrink-0" />
+                      <span className="text-[11px] font-semibold leading-snug">
+                        {item}
+                      </span>
+                    </div>
+                  ))}
+                </div>
+
+                {/* Button */}
+                <button className="mt-5 w-full bg-[#ffa015] py-2.5 text-[11px] font-black uppercase tracking-wider text-black transition-all duration-300 hover:bg-black hover:text-[#ffa015]">
+                  Get Category Quote
+                </button>
+              </div>
+            </div>
+          </div>
           <div className="flex flex-col lg:flex-row gap-8 items-start relative">
             {/* Subcategory list */}
             <div className="w-full lg:w-[340px] xl:w-[380px] flex flex-col gap-2 shrink-0">
