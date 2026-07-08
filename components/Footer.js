@@ -1,5 +1,6 @@
 import React from "react";
 import Link from "next/link";
+import Image from "next/image";
 
 export default function Footer() {
   return (
@@ -7,12 +8,14 @@ export default function Footer() {
       <div className="container mx-auto px-6 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12">
         {/* Column 1: Brand & About */}
         <div className="space-y-6">
-          <div className="flex items-center gap-1">
-            <span className="text-2xl font-black text-white italic">Sire</span>
-            <span className="text-2xl font-light text-slate-400 italic border-l border-[#ffa015] pl-2">
-              Printing
-            </span>
-          </div>
+          <Image
+            src="/logos/Sire-Printing-UK-Logo-White.svg"
+            alt="Sire Printing UK"
+            width={220}
+            height={60}
+            priority
+            className="h-12 lg:h-14 w-auto"
+          />
           <div className="relative group max-w-sm">
             <input
               type="email"
