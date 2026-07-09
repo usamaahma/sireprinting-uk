@@ -84,22 +84,35 @@ export default function Footer() {
           <h4 className="text-[#ffa015] font-bold uppercase text-xs mb-6 tracking-[0.2em]">
             Useful Links
           </h4>
-          <ul className="space-y-3 text-sm text-slate-400">
-            {[
-              { name: "About Us", path: "/about" },
-              { name: "Contact Us", path: "/contactus" },
-              { name: "Portfolio", path: "/portfolio" },
-              { name: "Blogs", path: "/blogs" },
-              { name: "Privacy Policy", path: "/privacypolicy" },
-              { name: "Terms & Conditions", path: "/termsandconditions" },
-            ].map((link) => (
-              <li
-                key={link.name}
-                className="hover:text-[#ffa015] transition-colors"
-              >
-                <Link href={link.path}>{link.name}</Link>
-              </li>
-            ))}
+          <ul className="space-y-2 text-sm text-gray-400">
+            <li>
+              <Link href="/aboutus" className="hover:text-orange-400 cursor-pointer">
+                About Us
+              </Link>
+            </li>
+            <li className="hover:text-orange-400 cursor-pointer">
+              <Link href="/contactus">
+                Contact Us
+              </Link>
+            </li>
+            <li className="hover:text-orange-400 cursor-pointer">Portfolio</li>
+            <li className="hover:text-orange-400 cursor-pointer">
+              <Link href="/blogs">
+                Blogs
+              </Link>
+            </li>
+            <li className="hover:text-orange-400 cursor-pointer">Sitemap</li>
+            <li className="hover:text-orange-400 cursor-pointer">
+              <Link href="/privacypolicy">
+                Privacy Policy
+              </Link>
+            </li>
+
+            <li className="hover:text-orange-400 cursor-pointer">
+              <Link href="/termsandconditions">
+                Terms And Conditions
+              </Link>
+            </li>
           </ul>
         </div>
       </div>
