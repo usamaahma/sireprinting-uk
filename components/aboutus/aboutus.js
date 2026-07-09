@@ -24,28 +24,19 @@ const PackagingIllustration = () => (
     className="w-full max-w-lg mx-auto"
     aria-hidden="true"
   >
-    {/* Soft background glow */}
     <circle cx="280" cy="220" r="185" fill="#fdf8ee" opacity="0.55" />
     <ellipse cx="280" cy="390" rx="205" ry="25" fill="#fef3c7" opacity="0.45" />
-
-    {/* Main large box */}
     <polygon points="210,160 290,115 370,160 290,205" fill="#F5C872" />
     <polygon points="210,160 290,205 290,300 210,255" fill="#D98A10" />
     <polygon points="290,205 370,160 370,255 290,300" fill="#E8A030" />
     <line x1="290" y1="115" x2="290" y2="300" stroke="white" strokeWidth="1" opacity="0.18" />
     <line x1="252" y1="138" x2="252" y2="230" stroke="white" strokeWidth="1.5" opacity="0.28" />
-
-    {/* Small box left */}
     <polygon points="118,252 172,224 226,252 172,280" fill="#F0D090" />
     <polygon points="118,252 172,280 172,328 118,300" fill="#F5C872" />
     <polygon points="172,280 226,252 226,300 172,328" fill="#EDB84A" />
-
-    {/* Small box right */}
     <polygon points="336,262 378,240 420,262 378,284" fill="#F7E0A0" />
     <polygon points="336,262 378,284 378,322 336,300" fill="#EDB84A" />
     <polygon points="378,284 420,262 420,300 378,322" fill="#F0D090" />
-
-    {/* Delivery truck — dark */}
     <rect x="58" y="290" width="96" height="50" rx="5" fill="#1a1a1a" />
     <rect x="118" y="272" width="46" height="32" rx="4" fill="#2d2d2d" />
     <rect x="123" y="277" width="34" height="18" rx="2" fill="#e2e8f0" />
@@ -53,8 +44,6 @@ const PackagingIllustration = () => (
     <circle cx="132" cy="346" r="11" fill="#333" />
     <circle cx="80"  cy="346" r="5"  fill="#94a3b8" />
     <circle cx="132" cy="346" r="5"  fill="#94a3b8" />
-
-    {/* Building */}
     <rect x="394" y="112" width="56" height="140" rx="3" fill="#e2e8f0" />
     <rect x="394" y="112" width="56" height="11"  rx="3" fill="#cbd5e1" />
     {[0, 24, 48, 72, 96].map((y) => (
@@ -63,33 +52,21 @@ const PackagingIllustration = () => (
         <rect x="422" y={y + 128} width="13" height="11" rx="1" fill="#F5C872" />
       </React.Fragment>
     ))}
-
-    {/* Location pin */}
     <circle cx="278" cy="80" r="18" fill="#D98A10" />
     <path d="M 266 92 L 278 116 L 290 92" fill="#D98A10" />
     <circle cx="278" cy="80" r="8" fill="white" />
     <circle cx="278" cy="80" r="4" fill="#D98A10" />
-
-    {/* Dotted paths */}
     <path d="M 174 278 Q 218 238 270 210" stroke="#D98A10" strokeWidth="2" strokeDasharray="6 4" fill="none" opacity="0.5" />
     <path d="M 378 270 Q 344 236 316 206" stroke="#1a1a1a" strokeWidth="2" strokeDasharray="6 4" fill="none" opacity="0.4" />
-
-    {/* Globe outline */}
     <circle cx="78" cy="168" r="26" fill="none" stroke="#D98A10" strokeWidth="1.8" opacity="0.4" />
     <ellipse cx="78" cy="168" rx="10" ry="26" fill="none" stroke="#D98A10" strokeWidth="1.2" opacity="0.28" />
     <line x1="52" y1="168" x2="104" y2="168" stroke="#D98A10" strokeWidth="1.2" opacity="0.28" />
-
-    {/* Growth arrow */}
     <path d="M 463 248 L 463 218" stroke="#D98A10" strokeWidth="3" strokeLinecap="round" />
     <path d="M 453 228 L 463 218 L 473 228" stroke="#D98A10" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" fill="none" />
-
-    {/* Accent dots */}
     <circle cx="460" cy="148" r="6" fill="#D98A10" opacity="0.8" />
     <circle cx="478" cy="115" r="4" fill="#B8750D"  opacity="0.6" />
     <circle cx="92"  cy="132" r="7" fill="#1a1a1a"  opacity="0.55" />
     <circle cx="108" cy="108" r="4" fill="#333"     opacity="0.45" />
-
-    {/* Label tag on main box */}
     <rect x="348" y="130" width="32" height="20" rx="4" fill="white" opacity="0.88" />
     <line x1="354" y1="138" x2="374" y2="138" stroke="#D98A10" strokeWidth="2" />
     <line x1="354" y1="144" x2="368" y2="144" stroke="#d1d5db" strokeWidth="1.5" />
@@ -127,7 +104,6 @@ const partnerBenefits = [
   },
 ];
 
-/* alternating #D98A10 / black cards */
 const coreValues = [
   {
     title: 'CUSTOMER OBSESSION',
@@ -161,12 +137,63 @@ const coreValues = [
   },
 ];
 
-const missionPhotos = [
-  'https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=400&h=400&fit=crop&q=80',
-  'https://images.unsplash.com/photo-1556761175-b413da4baf72?w=400&h=400&fit=crop&q=80',
-  'https://images.unsplash.com/photo-1560250097-0b93528c311a?w=400&h=400&fit=crop&q=80',
-  'https://images.unsplash.com/photo-1573497019940-1c28c88b4f3e?w=400&h=400&fit=crop&q=80',
-  'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400&h=400&fit=crop&q=80',
+/* ─── Mission section data ──────────────────────────────────── */
+const impactStats = [
+  {
+    number: '10K+',
+    label: 'Customers Served',
+    icon: (
+      <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5}
+          d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0z" />
+      </svg>
+    ),
+  },
+  {
+    number: '50+',
+    label: 'Countries Reached',
+    icon: (
+      <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5}
+          d="M3.055 11H5a2 2 0 012 2v1a2 2 0 002 2 2 2 0 012 2v2.945M8 3.935V5.5A2.5 2.5 0 0010.5 8h.5a2 2 0 012 2 2 2 0 104 0 2 2 0 012-2h1.064M15 20.488V18a2 2 0 012-2h3.064" />
+      </svg>
+    ),
+  },
+  {
+    number: '500+',
+    label: 'Trusted Partners',
+    icon: (
+      <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5}
+          d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5" />
+      </svg>
+    ),
+  },
+  {
+    number: '15M+',
+    label: 'Boxes Delivered',
+    icon: (
+      <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5}
+          d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4" />
+      </svg>
+    ),
+  },
+];
+
+const missionPillars = [
+  {
+    keyword: 'Better',
+    desc: 'Raising the bar on every product with relentless quality control and innovation-first thinking.',
+  },
+  {
+    keyword: 'Easier',
+    desc: 'A single digital platform that removes friction from every step — quote to delivery.',
+  },
+  {
+    keyword: 'Affordable',
+    desc: 'Leveraging global scale so competitive pricing is the baseline, not an exception.',
+  },
 ];
 
 const futureCards = [
@@ -297,33 +324,142 @@ export default function AboutPage() {
         </div>
       </section>
 
-      {/* ── SECTION 3 : OUR TIMELESS MISSION ──────────────────── */}
-      <section className="py-16 md:py-24 px-4 bg-white">
-        <div className="max-w-7xl mx-auto">
+      {/* ══════════════════════════════════════════════════════════
+          ── SECTION 3 : OUR TIMELESS MISSION  (NEW — LUXURY)  ──
+      ══════════════════════════════════════════════════════════ */}
+      <section className="relative bg-black overflow-hidden">
 
-          <p className="text-xs font-extrabold text-gray-500 uppercase tracking-[0.25em] text-center mb-5">
+        {/* Decorative top gold rule */}
+        <div
+          style={{
+            height: '2px',
+            background: 'linear-gradient(90deg, transparent 0%, #D98A10 40%, #F5C872 60%, transparent 100%)',
+          }}
+        />
+
+        {/* Subtle radial gold glow */}
+        <div
+          className="pointer-events-none absolute inset-0"
+          style={{
+            background:
+              'radial-gradient(ellipse 70% 55% at 50% 30%, rgba(217,138,16,0.10) 0%, transparent 70%)',
+          }}
+        />
+
+        <div className="relative max-w-7xl mx-auto px-4 pt-20 pb-0 md:pt-28">
+
+          {/* Label */}
+          <p
+            className="text-xs font-extrabold uppercase tracking-[0.3em] text-center mb-6"
+            style={{ color: '#D98A10' }}
+          >
             OUR TIMELESS MISSION
           </p>
-          <h2 className="text-4xl md:text-5xl font-extrabold text-gray-900 text-center leading-tight max-w-3xl mx-auto mb-14">
-            To make packaging better, easier, and more affordable for everyone, everywhere.
+
+          {/* Hero headline — cream/gold, no white */}
+          <h2
+            className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-extrabold text-center leading-[1.08] max-w-4xl mx-auto mb-6"
+            style={{ color: '#F5E6C8' }}
+          >
+            To make packaging{' '}
+            <span style={{ color: '#D98A10' }}>better</span>,{' '}
+            <span style={{ color: '#D98A10' }}>easier</span>,
+            {' '}and more{' '}
+            <span style={{ color: '#D98A10' }}>affordable</span>
+            {' '}—{' '}for everyone, everywhere.
           </h2>
 
-          <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-3 md:gap-4">
-            {missionPhotos.map((src, i) => (
+          {/* Supporting line — muted gold, no white */}
+          <p
+            className="text-center text-lg max-w-2xl mx-auto mb-20 leading-relaxed"
+            style={{ color: 'rgba(217,138,16,0.55)' }}
+          >
+            Every decision we make traces back to this single promise. It's not a tagline — it's our
+            operating principle.
+          </p>
+
+          {/* ── Three mission pillars — gold dividers, no white ── */}
+          <div
+            className="grid md:grid-cols-3 rounded-2xl overflow-hidden mb-20"
+            style={{ gap: '1px', backgroundColor: 'rgba(217,138,16,0.18)' }}
+          >
+            {missionPillars.map(({ keyword, desc }, i) => (
               <div
-                key={i}
-                className="aspect-square rounded-2xl md:rounded-3xl overflow-hidden group cursor-pointer"
+                key={keyword}
+                className="bg-black p-8 md:p-10 group hover:bg-[#0A0A0A] transition-colors duration-300"
               >
-                <img
-                  src={src}
-                  alt={`Team member ${i + 1}`}
-                  loading="lazy"
-                  className="w-full h-full object-cover grayscale group-hover:grayscale-0 group-hover:scale-105 transition-all duration-500"
+                {/* Number marker */}
+                <p
+                  className="text-xs font-extrabold uppercase tracking-[0.25em] mb-5"
+                  style={{ color: '#D98A10' }}
+                >
+                  0{i + 1}
+                </p>
+                {/* Keyword — cream, no white */}
+                <h3
+                  className="text-3xl font-extrabold mb-3 transition-colors duration-300"
+                  style={{ color: '#F5C872' }}
+                >
+                  {keyword}
+                </h3>
+                {/* Thin gold rule */}
+                <div
+                  className="mb-4 h-px w-10 group-hover:w-16 transition-all duration-500"
+                  style={{ background: '#D98A10' }}
                 />
+                {/* Description — muted gold, no white */}
+                <p
+                  className="leading-relaxed text-base"
+                  style={{ color: 'rgba(217,138,16,0.5)' }}
+                >
+                  {desc}
+                </p>
+              </div>
+            ))}
+          </div>
+
+          {/* ── Impact stats strip — gold dividers, no white ── */}
+          <div
+            className="grid grid-cols-2 lg:grid-cols-4"
+            style={{ gap: '1px', backgroundColor: 'rgba(217,138,16,0.18)' }}
+          >
+            {impactStats.map(({ number, label, icon }) => (
+              <div
+                key={label}
+                className="bg-black px-6 py-10 flex flex-col items-center text-center group hover:bg-[#0A0A0A] transition-colors duration-300"
+              >
+                <div
+                  className="w-11 h-11 rounded-xl flex items-center justify-center mb-5"
+                  style={{ backgroundColor: 'rgba(217,138,16,0.12)', color: '#D98A10' }}
+                >
+                  {icon}
+                </div>
+                <p
+                  className="text-4xl md:text-5xl font-extrabold mb-2 leading-none"
+                  style={{ color: '#D98A10' }}
+                >
+                  {number}
+                </p>
+                {/* Label — muted gold, no white */}
+                <p
+                  className="text-xs font-semibold uppercase tracking-[0.2em]"
+                  style={{ color: 'rgba(217,138,16,0.45)' }}
+                >
+                  {label}
+                </p>
               </div>
             ))}
           </div>
         </div>
+
+        {/* Decorative bottom gold rule */}
+        <div
+          className="mt-0"
+          style={{
+            height: '2px',
+            background: 'linear-gradient(90deg, transparent 0%, #D98A10 40%, #F5C872 60%, transparent 100%)',
+          }}
+        />
       </section>
 
       {/* ── SECTION 4 : OUR CORE VALUES ───────────────────────── */}
