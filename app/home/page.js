@@ -10,6 +10,8 @@ import ContentSection from "@/components/ContentSection";
 import FAQSection from "@/components/Faqs";
 import Testimonials from "@/components/Testimonials";
 import PackagingSections from "@/components/FinalCta";
+import CustomPackagingCards from "@/components/custompackagingcards";
+
 
 export default async function HomePage() {
   // Database connect karein
@@ -46,7 +48,7 @@ export default async function HomePage() {
 
       {/* Yahan wahi subcategories jayengi jo Custom Product Boxes ki hain */}
       <IndustrySection subcategoriesData={subcategoriesData} />
-
+      <CustomPackagingCards />
       <ContentSection />
       <Testimonials />
       <PackagingSections />
