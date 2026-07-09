@@ -1,58 +1,68 @@
-const RESOLVE_API = "/api/resolve";
-const BASE_API = "/api/subcategories"; // POST aur GET ALL ke liye
+const getBaseUrl = () => {
+  // 1. Agar browser (client-side) hai, toh relative path hamesha 100% sahi chalega
+  if (typeof window !== "undefined") return "";
+
+  // 2. Server-side (SSR/Build) ke liye sabse pehle aapki custom live domain check karega
+  if (process.env.NEXT_PUBLIC_SITE_URL) return process.env.NEXT_PUBLIC_SITE_URL;
+
+  // 3. Fallback: Agar custom domain nahi set, toh Vercel ka automatic URL utha lega
+  if (process.env.VERCEL_URL) return `https://${process.env.VERCEL_URL}`;
+
+  // 4. Local machine fallback
+  return "http://localhost:3000";
+};
+
+const RESOLVE_API = `${getBaseUrl()}/api/resolve`;
+const BASE_API = `${getBaseUrl()}/api/subcategories`;
+
+const safeFetch = async (url, options = {}) => {
+  try {
+    const res = await fetch(url, options);
+    const contentType = res.headers.get("content-type");
+    if (!contentType || !contentType.includes("application/json")) {
+      return {
+        success: false,
+        error: `Server status ${res.status}: Non-JSON response`,
+      };
+    }
+    return await res.json();
+  } catch (error) {
+    console.error(`[API Error] URL: ${url} ->`, error);
+    return { success: false, error: error.message || "Network request failed" };
+  }
+};
 
 export const subcategoryService = {
-  // 1. Saari subcategories get karne ke liye
   async getAll() {
-    const res = await fetch(BASE_API, {
-      cache: "no-store",
-    });
-    return res.json();
+    return safeFetch(BASE_API, { cache: "no-store" });
   },
-
-  // 2. Ek subcategory get karne ke liye (ID ya Slug dono chalenge)
   async getOne(idOrSlug) {
-    const res = await fetch(`${RESOLVE_API}/${idOrSlug}`, {
+    return safeFetch(`${RESOLVE_API}/${idOrSlug}`, {
       method: "GET",
       cache: "no-store",
     });
-    return res.json();
   },
-
-  // 3. Nayi subcategory create karne ke liye
   async create(data) {
-    const res = await fetch(BASE_API, {
+    return safeFetch(BASE_API, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(data),
     });
-    return res.json();
   },
-
-  // 4. Update karne ke liye (Nayi Resolve API use ho rahi hai)
   async update(id, data) {
-    const res = await fetch(`${RESOLVE_API}/${id}`, {
+    return safeFetch(`${RESOLVE_API}/${id}`, {
       method: "PUT",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(data),
     });
-    return res.json();
   },
-
-  // 5. Delete karne ke liye
   async delete(id) {
-    const res = await fetch(`${RESOLVE_API}/${id}`, {
-      method: "DELETE",
-    });
-    return res.json();
+    return safeFetch(`${RESOLVE_API}/${id}`, { method: "DELETE" });
   },
-
-  // 6. Bonus: Parent Category ke through get karne ke liye
   async getByParent(parentSlugOrId) {
-    const res = await fetch(`${RESOLVE_API}/${parentSlugOrId}?type=parent`, {
+    return safeFetch(`${RESOLVE_API}/${parentSlugOrId}?type=parent`, {
       method: "GET",
       cache: "no-store",
     });
-    return res.json();
   },
 };
